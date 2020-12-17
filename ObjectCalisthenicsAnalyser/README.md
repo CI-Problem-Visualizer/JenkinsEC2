@@ -1,6 +1,6 @@
-# CodeEvaluation
+# ObjectCalisthenicsAnalyser
 
-## Big Plans
+## Big Plans for Analysis
 
 - Object calisthenics related data
 - Domain alienation (class suffixes like -Util, -Helper, -Manager etc. and package names like dao, dto, models, services, components, controllers etc.)
