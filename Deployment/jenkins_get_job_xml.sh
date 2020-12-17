@@ -8,4 +8,4 @@ fi
 
 JENKINS_IP=$(./jenkins_ip.sh)
 CREDENTIALS=$(cat jenkins_creds.txt)
-./jenkins_cli.sh get-job CodeEvaluation
+./jenkins_cli.sh get-job CodeSpyGlass

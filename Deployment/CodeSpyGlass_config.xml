@@ -1,7 +1,7 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.40">
   <actions/>
-  <description>Evaluates code</description>
+  <description>Looks carefully at code</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -16,7 +16,7 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>GitHubLink</name>
-          <description>The GitHub URL of the code to evaluate</description>
+          <description>The GitHub URL of the code to look at</description>
           <defaultValue>https://github.com/robmoore-i/AccountingCalisthenics</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
@@ -28,7 +28,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/robmoore-i/CodeEvaluation</url>
+          <url>https://github.com/CodeSpyGlass/JenkinsPipelineLibrary</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
@@ -40,7 +40,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>CodeEvaluation/Jenkinsfile.groovy</scriptPath>
+    <scriptPath>Jenkinsfile.groovy</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
