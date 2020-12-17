@@ -21,6 +21,9 @@ Full name: JenkinsAdmin
 - (If necessary) Download the Jenkins CLI tool from the Jenkins server using `./jenkins_cli_download.sh`
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins. The downloads can be flaky, so
 you may have to ctrl-C the script and re-run it, maybe even more than once. Eventually though it'll make it to the end.
+- Once all the plugins are installed, go to the update center (`jenkins_install_plugins.sh` will print out a link
+to it at the start of script execution), and check the box at the bottom which says that it will make Jenkins restart. This
+should then immediately cause Jenkins to begin restarting. The restart should not take long at all, just a few seconds.
 - Run `./jenkins_create_job.sh CodeSpyGlass_config.xml` to create the CodeSpyGlass pipeline job
 - Set up the global pipeline library by going to 'Manage Jenkins > Configure System > Global Pipeline Libraries' and configure it as follows:
 
@@ -35,7 +38,7 @@ Retrieval method: Modern SCM
 Source code management:
   GitHub:
     Repository HTTPS URL: https://github.com/CodeSpyGlass/JenkinsPipelineLibrary
-    (leave everything else at the defaults)
 ```
 
+- Leave everything else at the defaults. Press "save" at the bottom when you're done with the above.
 - Now you should be able to run the 'CodeSpyGlass' pipeline job, and it should go green.

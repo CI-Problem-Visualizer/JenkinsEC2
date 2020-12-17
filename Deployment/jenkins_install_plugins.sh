@@ -7,7 +7,6 @@ then
 fi
 
 JENKINS_IP=$(./jenkins_ip.sh)
-CREDENTIALS=$(cat jenkins_creds.txt)
 
 echo "You can view the progress of these installations at http://${JENKINS_IP}:8080/updateCenter/"
 
@@ -28,6 +27,7 @@ install_plugin git-parameter
 install_plugin email-ext
 install_plugin mailer
 install_plugin htmlpublisher
+install_plugin http_request
 install_plugin timestamper
 install_plugin workflow-cps-global-lib
 install_plugin pipeline-model-definition

@@ -19,7 +19,7 @@ ssh -i jenkins_server_keys.pem ubuntu@${JENKINS_IP} << 'EOF'
   sudo systemctl status docker > /home/ubuntu/docker-service-status.log
   sudo docker pull jenkins/jenkins:lts
   sudo ufw allow 8080
-  sudo docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+  sudo docker run -d --network host -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 
   ### Start ObjectCalisthenicsAnalyser ###
   sudo add-apt-repository -y ppa:openjdk-r/ppa
