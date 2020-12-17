@@ -11,6 +11,8 @@ import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.Netty
 import org.http4k.server.asServer
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class ObjectCalisthenicsServer {
     companion object {
@@ -22,22 +24,30 @@ class ObjectCalisthenicsServer {
 }
 
 fun createObjectCalisthenicsServer(port: Int): Http4kServer =
-    routes("/object-calisthenics-report" bind defaultApp()).asServer(Netty(port))
+        routes("/object-calisthenics-report" bind defaultApp()).asServer(Netty(port))
 
 private fun defaultApp(): (Request) -> Response {
     val constraints = listOf(
-        OneLevelOfIndentationConstraint(),
-        NoElseKeywordConstraint()
+            OneLevelOfIndentationConstraint(),
+            NoElseKeywordConstraint()
     )
     return app(Analyser(constraints), AnalysisFormatter())
 }
 
 private fun app(analyser: Analyser, analysisFormatter: AnalysisFormatter): (Request) -> Response {
+    val logger: Logger = LoggerFactory.getLogger(Http4kServer::class.java)
+    logger.info("Creating analysis application")
     return { request: Request ->
+        logger.info(request.toString())
+        val response: Response = response(request, analyser, analysisFormatter)
+        logger.info(response.toString())
+        response
+    }
+}
+
+private fun response(request: Request, analyser: Analyser, analysisFormatter: AnalysisFormatter): Response =
         if (!request.body.payload.hasRemaining()) {
             Response(BAD_REQUEST).body("Please include a request body")
         } else {
             Response(OK).body(analysisFormatter.format(analyser.analyse(JavaFile.from(request))))
         }
-    }
-}

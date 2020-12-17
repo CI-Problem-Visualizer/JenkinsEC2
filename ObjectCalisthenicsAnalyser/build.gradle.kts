@@ -18,7 +18,7 @@ dependencies {
     implementation("org.http4k:http4k-client-apache")
     implementation("com.github.javaparser:javaparser-symbol-solver-core:3.18.0")
     implementation("org.http4k:http4k-format-jackson:3.283.0")
-
+    implementation("org.slf4j:slf4j-simple:1.7.21")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")

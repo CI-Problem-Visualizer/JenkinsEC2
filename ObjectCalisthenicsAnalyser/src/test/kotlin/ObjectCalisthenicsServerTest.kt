@@ -33,8 +33,7 @@ class ObjectCalisthenicsServerTest {
     fun `without a request body the response is bad request`() {
         assertThat(
                 client(Request(POST, "http://${socket()}/object-calisthenics-report")),
-                hasStatus(BAD_REQUEST)
-        )
+                hasStatus(BAD_REQUEST))
     }
 
     @Test
@@ -45,7 +44,6 @@ class ObjectCalisthenicsServerTest {
                 "}")
         assertThat(
                 client(Request(POST, "http://${socket()}/object-calisthenics-report").body(body)),
-                hasStatus(OK)
-        )
+                hasStatus(OK))
     }
 }
