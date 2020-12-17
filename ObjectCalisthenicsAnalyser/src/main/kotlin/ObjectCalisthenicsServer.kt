@@ -40,10 +40,15 @@ private fun app(analyser: Analyser, analysisFormatter: AnalysisFormatter): (Requ
     val logger: Logger = LoggerFactory.getLogger(Http4kServer::class.java)
     logger.info("Creating analysis application")
     return { request: Request ->
-        logger.info(request.toString())
-        val response: Response = response(logger, request, analyser, analysisFormatter)
-        logger.info(response.toString())
-        response
+        try {
+            logger.info(request.toString())
+            val response: Response = response(logger, request, analyser, analysisFormatter)
+            logger.info(response.toString())
+            response
+        } catch (e: Exception) {
+            logger.error("Failed to produce an analysis", e)
+            Response(INTERNAL_SERVER_ERROR)
+        }
     }
 }
 
@@ -54,14 +59,9 @@ private fun response(logger: Logger,
         if (!request.body.payload.hasRemaining()) {
             Response(BAD_REQUEST).body("Please include a request body")
         } else {
-            try {
-                val javaFile: JavaFile = JavaFile.from(request)
-                logger.info(javaFile.toString())
-                val evaluations: List<ConstraintEvaluation> = analyser.analyse(javaFile)
-                logger.info(evaluations.toString())
-                Response(OK).body(analysisFormatter.format(evaluations))
-            } catch (e: Exception) {
-                logger.error("Failed to produce an analysis", e)
-                Response(INTERNAL_SERVER_ERROR)
-            }
+            val javaFile: JavaFile = JavaFile.from(request)
+            logger.info(javaFile.toString())
+            val evaluations: List<ConstraintEvaluation> = analyser.analyse(javaFile)
+            logger.info(evaluations.toString())
+            Response(OK).body(analysisFormatter.format(evaluations))
         }

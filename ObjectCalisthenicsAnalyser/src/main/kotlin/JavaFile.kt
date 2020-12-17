@@ -11,7 +11,10 @@ import java.util.*
 class JavaFile(private val className: String, private val fileContent: String) {
     companion object {
         fun from(request: Request): JavaFile {
-            return Body.auto<JavaFile>().toLens()(request)
+            val jacksonSafeRequestBody = request.bodyString()
+                    .replace("\n", "")
+            return Body.auto<JavaFile>().toLens()(
+                    Request(request.method, request.uri).body(jacksonSafeRequestBody))
         }
     }
 
@@ -34,7 +37,7 @@ class JavaFile(private val className: String, private val fileContent: String) {
         }
         val compilationUnit: CompilationUnit = optionalResult.get()
         val optionalClassByName: Optional<ClassOrInterfaceDeclaration> =
-            compilationUnit.getClassByName(className())
+                compilationUnit.getClassByName(className())
         if (!optionalClassByName.isPresent) {
             throw IllegalArgumentException("Filename doesn't match name of declared class in source")
         }
