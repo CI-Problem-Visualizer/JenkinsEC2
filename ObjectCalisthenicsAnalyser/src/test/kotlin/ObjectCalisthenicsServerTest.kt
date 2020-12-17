@@ -27,27 +27,25 @@ class ObjectCalisthenicsServerTest {
 
     private fun remoteSocket() = RemoteSocket.get()
     private fun localSocket() = "localhost:${server.port()}"
-    private fun socket() = localSocket()
+    private fun socket() = remoteSocket()
 
     @Test
     fun `without a request body the response is bad request`() {
         assertThat(
-            client(Request(POST, "http://${socket()}/object-calisthenics-report")),
-            hasStatus(BAD_REQUEST)
+                client(Request(POST, "http://${socket()}/object-calisthenics-report")),
+                hasStatus(BAD_REQUEST)
         )
     }
 
     @Test
     fun `given a sensible request the response is ok`() {
-        val body = Body(
-            "{" +
-                    "\"className\": \"MyClass\", " +
-                    "\"fileContent\": \"public class MyClass {}\"" +
-                    "}"
-        )
+        val body = Body("{" +
+                "\"className\": \"MyClass\", " +
+                "\"fileContent\": \"public class MyClass {}\"" +
+                "}")
         assertThat(
-            client(Request(POST, "http://${socket()}/object-calisthenics-report").body(body)),
-            hasStatus(OK)
+                client(Request(POST, "http://${socket()}/object-calisthenics-report").body(body)),
+                hasStatus(OK)
         )
     }
 }

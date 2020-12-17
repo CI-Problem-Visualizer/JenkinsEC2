@@ -8,7 +8,7 @@ object RemoteSocket {
     }
 
     private fun jenkinsIp(): String {
-        val deploymentDirectory = Paths.get("..", "deployment").toFile()
+        val deploymentDirectory = Paths.get("..", "Deployment").toFile()
         return "sh jenkins_ip.sh"
                 .runCommand(deploymentDirectory)
     }

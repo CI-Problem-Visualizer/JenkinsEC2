@@ -25,5 +25,5 @@ ssh -i jenkins_server_keys.pem ubuntu@${JENKINS_IP} << 'EOF'
   sudo add-apt-repository -y ppa:openjdk-r/ppa
   sudo apt-get update
   sudo apt install -y openjdk-11-jdk
-  nohup java -jar ObjectCalisthenicsAnalyser-1.0-SNAPSHOT.jar > analyser-log.txt &
+  nohup java -jar ObjectCalisthenicsAnalyser-1.0-SNAPSHOT.jar > analyser-log.txt 2>&1 &
 EOF
