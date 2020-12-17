@@ -1,0 +1,4 @@
+.terraform
+jenkins_server_keys.pem
+jenkins_creds.txt
+jenkins-cli.jar

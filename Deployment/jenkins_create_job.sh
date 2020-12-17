@@ -1,0 +1,19 @@
+if [[ ! -e jenkins-cli.jar ]]
+then
+  echo ""
+  echo "Download the jenkins CLI tool first."
+  echo ""
+  exit 1
+fi
+
+if [[ -z $1 ]]
+then
+  echo ""
+  echo "Pass in the filename for the XML job specification"
+  echo ""
+  exit 1
+fi
+
+JENKINS_IP=$(./jenkins_ip.sh)
+CREDENTIALS=$(cat jenkins_creds.txt)
+./jenkins_cli.sh create-job CodeEvaluation < $1
