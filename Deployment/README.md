@@ -33,7 +33,7 @@ Include @Library changes in job recent changes: Yes
 Retrieval method: Modern SCM
 Source code management:
   GitHub:
-    Repository HTTPS URL: https://github.com/robmoore-i/CodeEvaluation
+    Repository HTTPS URL: https://github.com/CodeEvaluation/JenkinsPipelineLibrary
     (leave everything else at the defaults)
 ```
 
