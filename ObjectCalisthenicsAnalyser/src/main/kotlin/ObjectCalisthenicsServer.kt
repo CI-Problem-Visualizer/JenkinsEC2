@@ -1,10 +1,12 @@
 import analyser.Analyser
 import analyser.AnalysisFormatter
+import analyser.ConstraintEvaluation
 import constraint.NoElseKeywordConstraint
 import constraint.OneLevelOfIndentationConstraint
 import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.BAD_REQUEST
+import org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR
 import org.http4k.core.Status.Companion.OK
 import org.http4k.routing.bind
 import org.http4k.routing.routes
@@ -39,15 +41,27 @@ private fun app(analyser: Analyser, analysisFormatter: AnalysisFormatter): (Requ
     logger.info("Creating analysis application")
     return { request: Request ->
         logger.info(request.toString())
-        val response: Response = response(request, analyser, analysisFormatter)
+        val response: Response = response(logger, request, analyser, analysisFormatter)
         logger.info(response.toString())
         response
     }
 }
 
-private fun response(request: Request, analyser: Analyser, analysisFormatter: AnalysisFormatter): Response =
+private fun response(logger: Logger,
+                     request: Request,
+                     analyser: Analyser,
+                     analysisFormatter: AnalysisFormatter): Response =
         if (!request.body.payload.hasRemaining()) {
             Response(BAD_REQUEST).body("Please include a request body")
         } else {
-            Response(OK).body(analysisFormatter.format(analyser.analyse(JavaFile.from(request))))
+            try {
+                val javaFile: JavaFile = JavaFile.from(request)
+                logger.info(javaFile.toString())
+                val evaluations: List<ConstraintEvaluation> = analyser.analyse(javaFile)
+                logger.info(evaluations.toString())
+                Response(OK).body(analysisFormatter.format(evaluations))
+            } catch (e: Exception) {
+                logger.error("Failed to produce an analysis", e)
+                Response(INTERNAL_SERVER_ERROR)
+            }
         }
