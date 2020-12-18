@@ -3,15 +3,15 @@ pushd ../ObjectCalisthenicsAnalyser || exit 1
 ./gradlew jar
 popd || exit 1
 
-JENKINS_IP=$(./jenkins_ip.sh)
+NODE_IP=$(./node_ip.sh)
 
 # Copy over JAR
 scp -i jenkins_server_keys.pem \
   ../ObjectCalisthenicsAnalyser/build/libs/ObjectCalisthenicsAnalyser-1.0-SNAPSHOT.jar \
-  ubuntu@${JENKINS_IP}:/home/ubuntu
+  "ubuntu@${NODE_IP}:/home/ubuntu"
 
 # Run JAR
-ssh -i jenkins_server_keys.pem ubuntu@${JENKINS_IP} << 'EOF'
+ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" << 'EOF'
   command -v java
   JAVA_MISSING=$?
   if [[ $JAVA_MISSING == "1" ]]

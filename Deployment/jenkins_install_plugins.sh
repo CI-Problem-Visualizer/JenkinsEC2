@@ -6,12 +6,12 @@ then
   exit 1
 fi
 
-JENKINS_IP=$(./jenkins_ip.sh)
+NODE_IP=$(./node_ip.sh)
 
-echo "You can view the progress of these installations at http://${JENKINS_IP}:8080/updateCenter/"
+echo "You can view the progress of these installations at http://${NODE_IP}:8080/updateCenter/"
 
 function install_plugin {
-  ./jenkins_cli.sh install-plugin $1 -deploy
+  ./jenkins_cli.sh install-plugin "$1" -deploy
 }
 
 install_plugin cloudbees-folder

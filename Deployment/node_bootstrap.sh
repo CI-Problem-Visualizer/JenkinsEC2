@@ -1,7 +1,7 @@
-JENKINS_IP=$(./jenkins_ip.sh)
+NODE_IP=$(./node_ip.sh)
 
 ### Install and start Jenkins ###
-ssh -i jenkins_server_keys.pem ubuntu@${JENKINS_IP} << 'EOF'
+ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" << 'EOF'
   sudo apt update
   sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -13,7 +13,7 @@ ssh -i jenkins_server_keys.pem ubuntu@${JENKINS_IP} << 'EOF'
   sudo systemctl status docker > /home/ubuntu/docker-service-status.log
   sudo docker pull jenkins/jenkins:lts
   sudo ufw allow 8080
-  sudo docker run -d --network host -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+  sudo docker run -d --network host -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 EOF
 
 ### Install and start analysis server ###

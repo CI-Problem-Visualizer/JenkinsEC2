@@ -14,6 +14,4 @@ then
   exit 1
 fi
 
-JENKINS_IP=$(./jenkins_ip.sh)
-CREDENTIALS=$(cat jenkins_creds.txt)
-./jenkins_cli.sh create-job CodeSpyGlass < $1
+./jenkins_cli.sh create-job CodeSpyGlass < "$1"

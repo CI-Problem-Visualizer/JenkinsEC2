@@ -6,6 +6,7 @@ then
   exit 1
 fi
 
-JENKINS_IP=$(./jenkins_ip.sh)
+NODE_IP=$(./node_ip.sh)
 CREDENTIALS=$(cat jenkins_creds.txt)
-java -jar jenkins-cli.jar -s http://${JENKINS_IP}:8080 -auth ${CREDENTIALS} $@
+# shellcheck disable=SC2068
+java -jar jenkins-cli.jar -s "http://${NODE_IP}:8080" -auth "${CREDENTIALS}" $@
