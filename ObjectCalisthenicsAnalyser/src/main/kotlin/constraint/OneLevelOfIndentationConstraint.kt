@@ -21,8 +21,6 @@ class OneLevelOfIndentationConstraint : Constraint {
         return Conformant()
     }
 
-    // TODO: Ignore strings and comments
-    // TODO: Handle blocks without braces
     private fun hasMoreThanOneLevelOfIndentation(javaFile: JavaFile): Boolean {
         val allBraces: String = extractSemanticBlocksOf(javaFile)
         var nestingLevel = 0
