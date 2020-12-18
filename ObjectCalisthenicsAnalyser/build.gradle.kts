@@ -35,7 +35,7 @@ tasks.withType<Test> {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "ObjectCalisthenicsServer"
+        attributes["Main-Class"] = "Main"
     }
     from(configurations.compileClasspath.map { config -> config.map { if (it.isDirectory) it else zipTree(it) } })
 }

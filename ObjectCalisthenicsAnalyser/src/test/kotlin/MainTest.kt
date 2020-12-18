@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @Suppress("unused")
-class ObjectCalisthenicsServerTest {
+class MainTest {
     private val client = ApacheClient()
     private val server = createObjectCalisthenicsServer(0)
 
@@ -27,7 +27,7 @@ class ObjectCalisthenicsServerTest {
 
     private fun remoteSocket() = RemoteSocket.get()
     private fun localSocket() = "localhost:${server.port()}"
-    private fun socket() = remoteSocket()
+    private fun socket() = localSocket()
 
     @Test
     fun `without a request body the response is bad request`() {
