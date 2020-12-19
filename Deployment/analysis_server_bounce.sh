@@ -1,5 +1,5 @@
 # Rebuild
-pushd ../ObjectCalisthenicsAnalyser || exit 1
+pushd ../JavaAnalyser || exit 1
 ./gradlew jar
 popd || exit 1
 
@@ -7,7 +7,7 @@ NODE_IP=$(./node_ip.sh)
 
 # Copy over JAR
 scp -i jenkins_server_keys.pem \
-  ../ObjectCalisthenicsAnalyser/build/libs/ObjectCalisthenicsAnalyser-1.0-SNAPSHOT.jar \
+  ../JavaAnalyser/build/libs/JavaAnalyser-1.0-SNAPSHOT.jar \
   "ubuntu@${NODE_IP}:/home/ubuntu"
 
 # Run JAR
@@ -29,7 +29,7 @@ ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" << 'EOF'
     kill $PORT
   fi
 
-  nohup java -jar ObjectCalisthenicsAnalyser-1.0-SNAPSHOT.jar > analyser-log.txt 2>&1 &
+  nohup java -jar JavaAnalyser-1.0-SNAPSHOT.jar > analyser-log.txt 2>&1 &
   sleep 3
   cat analyser-log.txt
 EOF
