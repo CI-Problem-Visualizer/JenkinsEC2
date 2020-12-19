@@ -8,23 +8,22 @@ import org.http4k.core.Request.Companion as Request
 
 class JavaFileTest {
     @Test
-    fun `can remove class comments from itself`() {
+    fun `can parse when there are class comments`() {
         val javaFile = JavaFile(
             "ElseInComments", "/**\n" +
-                    " * the word else\n" +
+                    " * some comments\n" +
+                    " * the word else in a comment\n" +
                     " */\n" +
-                    "class ElseInComments {\n" +
+                    "public class ElseInComments {\n" +
                     "    // the word else\n" +
                     "    public int noProblem() {\n" +
                     "        return 5;\n" +
                     "    }\n" +
                     "}"
         )
-        val javaFileWithoutClassComment = javaFile.withoutClassComment()
-        println(javaFileWithoutClassComment.fileContent())
         assertThat(
-            javaFileWithoutClassComment.parse().accessSpecifier,
-            equalTo(AccessSpecifier.PACKAGE_PRIVATE)
+            javaFile.parse().accessSpecifier,
+            equalTo(AccessSpecifier.PUBLIC)
         )
     }
 

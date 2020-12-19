@@ -22,10 +22,7 @@ class NoElseKeywordConstraint : Constraint {
         if (!javaFile.fileContent().contains("else")) {
             return false
         }
-        val javaFileWithoutClassComment: JavaFile =
-            javaFile.withoutClassComment()
-        val classByName: ClassOrInterfaceDeclaration =
-            javaFileWithoutClassComment.parse()
+        val classByName: ClassOrInterfaceDeclaration = javaFile.parse()
         val methodContainsElseKeyword: (MethodDeclaration) -> Boolean = {
             val findElseKeywordVisitor = FindElseKeywordVisitor()
             it.accept(findElseKeywordVisitor, null)

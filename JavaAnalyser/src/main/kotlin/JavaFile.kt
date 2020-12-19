@@ -48,32 +48,4 @@ class JavaFile(private val className: String, private val fileContent: String) {
         }
         return optionalClassByName.get()
     }
-
-    /**
-     * This method is here because JavaParser fails when trying to parse the Java file in
-     * `src/test/resources/test-data-files/one-level-of-indentation/TwoSingleIfsBracesInComments`, which I believe is
-     * due to its inability to correctly parse the comments, as indicated by the error message:
-     * (line 1,col 102) Parse error. Found <EOF>, expected "}"
-     */
-    fun withoutClassComment(): JavaFile {
-        val fileContent = fileContent()
-        val lines = fileContent.lines()
-        val lineIsntClassDeclaration: (String) -> Boolean = { line ->
-            listOf(
-                "class",
-                "interface",
-                "enum",
-                "abstract",
-                "final",
-                "private",
-                "public",
-                "protected"
-            )
-                .none { line.trim().startsWith(it) }
-        }
-        return JavaFile(
-            className,
-            lines.dropWhile(lineIsntClassDeclaration).joinToString("\n")
-        )
-    }
 }

@@ -32,7 +32,7 @@ class OneLevelOfIndentationConstraint : Constraint {
             if (allBraces[i] == '}') nestingLevel--
             if (nestingLevel > 3) return true
         }
-        return hasMoreThanOneLevelOfIndentationInBlocksWithoutBraces(javaFile.withoutClassComment())
+        return hasMoreThanOneLevelOfIndentationInBlocksWithoutBraces(javaFile)
     }
 
     private fun extractSemanticBlocksOf(javaFile: JavaFile): String {
