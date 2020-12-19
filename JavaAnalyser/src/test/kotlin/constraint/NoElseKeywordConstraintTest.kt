@@ -8,6 +8,11 @@ class NoElseKeywordConstraintTest {
     private val constraint = NoElseKeywordConstraint()
 
     @Test
+    fun `ignores the word else in comments`() {
+        assertConstraintMet(constraint, "no-else-keyword/ElseInComments.java")
+    }
+
+    @Test
     fun `passes if there's no else statement`() {
         assertConstraintMet(constraint, "no-else-keyword/AllOk.java")
     }

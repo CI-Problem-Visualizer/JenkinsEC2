@@ -12,9 +12,13 @@ class JavaFile(private val className: String, private val fileContent: String) {
     companion object {
         fun from(request: Request): JavaFile {
             val jacksonSafeRequestBody = request.bodyString()
-                    .replace("\n", "")
+                .replace("\n", "")
             return Body.auto<JavaFile>().toLens()(
-                    Request(request.method, request.uri).body(jacksonSafeRequestBody))
+                Request(
+                    request.method,
+                    request.uri
+                ).body(jacksonSafeRequestBody)
+            )
         }
     }
 
@@ -27,7 +31,8 @@ class JavaFile(private val className: String, private val fileContent: String) {
     }
 
     fun parse(): ClassOrInterfaceDeclaration {
-        val parseResult: ParseResult<CompilationUnit> = JavaParser().parse(fileContent())
+        val parseResult: ParseResult<CompilationUnit> =
+            JavaParser().parse(fileContent())
         if (!parseResult.isSuccessful) {
             throw ParseException(parseResult.toString())
         }
@@ -37,10 +42,32 @@ class JavaFile(private val className: String, private val fileContent: String) {
         }
         val compilationUnit: CompilationUnit = optionalResult.get()
         val optionalClassByName: Optional<ClassOrInterfaceDeclaration> =
-                compilationUnit.getClassByName(className())
+            compilationUnit.getClassByName(className())
         if (!optionalClassByName.isPresent) {
             throw IllegalArgumentException("Filename doesn't match name of declared class in source")
         }
         return optionalClassByName.get()
+    }
+
+    fun withoutClassComment(): JavaFile {
+        val fileContent = fileContent()
+        val lines = fileContent.lines()
+        val lineIsntClassDeclaration: (String) -> Boolean = { line ->
+            listOf(
+                "class",
+                "interface",
+                "enum",
+                "abstract",
+                "final",
+                "private",
+                "public",
+                "protected"
+            )
+                .none { line.trim().startsWith(it) }
+        }
+        return JavaFile(
+            className,
+            lines.dropWhile(lineIsntClassDeclaration).joinToString("\n")
+        )
     }
 }
