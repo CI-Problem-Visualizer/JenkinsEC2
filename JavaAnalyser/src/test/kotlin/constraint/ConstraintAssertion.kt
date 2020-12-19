@@ -2,23 +2,22 @@ package constraint
 
 import JavaFile
 import TestDataFiles
-import analyser.Conformant
+import analyser.AllFine
 import analyser.Constraint
-import analyser.Violation
-import org.junit.jupiter.api.Assertions.assertFalse
+import analyser.RoomForImprovement
 import org.junit.jupiter.api.Assertions.assertTrue
 
 object ConstraintAssertion {
     fun assertConstraintNotMet(constraint: Constraint, testDataFilePath: String) {
         assertTrue(
-            evaluation(constraint, testDataFilePath) is Violation,
+            evaluation(constraint, testDataFilePath) is RoomForImprovement,
             "Expected a violation, but got conformance."
         )
     }
 
     fun assertConstraintMet(constraint: Constraint, testDataFilePath: String) {
         assertTrue(
-            evaluation(constraint, testDataFilePath) is Conformant,
+            evaluation(constraint, testDataFilePath) is AllFine,
             "Expected conformance, but got violation(s)."
         )
     }

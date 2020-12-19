@@ -11,20 +11,28 @@ import org.slf4j.LoggerFactory
 
 class AnalyserTest {
 
-    private val logger: Logger = LoggerFactory.getLogger(AnalyserTest::class.java)
-    private val javaFile = JavaFile("EmptyClass.java", TestDataFiles.contentOf("end-to-end/EmptyClass.java"))
+    private val logger: Logger =
+        LoggerFactory.getLogger(AnalyserTest::class.java)
+    private val javaFile = JavaFile(
+        "EmptyClass.java",
+        TestDataFiles.contentOf("end-to-end/EmptyClass.java")
+    )
 
 
     @Test
     fun `reports conformance when given`() {
-        val conformance = Conformant()
+        val conformance =
+            AllFine(JavaFile("SomeClass", "public class SomeClass {}"))
         val analyser = Analyser(logger, listOf(Constraint { conformance }))
         assertThat(analyser.analyse(javaFile), hasElement(conformance))
     }
 
     @Test
     fun `reports violations when given`() {
-        val violation = Violation("MyClass", "Oh no!")
+        val violation = RoomForImprovement(
+            JavaFile("SomeClass", "public class SomeClass {}"),
+            "Oh no!"
+        )
         val analyser = Analyser(logger, listOf(Constraint { violation }))
         assertThat(analyser.analyse(javaFile), hasElement(violation))
     }

@@ -1,21 +1,21 @@
 package constraint
 
 import JavaFile
-import analyser.Conformant
+import analyser.AllFine
 import analyser.Constraint
-import analyser.ConstraintEvaluation
-import analyser.Violation
+import analyser.JavaFileFeedback
+import analyser.RoomForImprovement
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.stmt.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 
 class NoElseKeywordConstraint : Constraint {
-    override fun evaluate(javaFile: JavaFile): ConstraintEvaluation {
+    override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (usesElseKeyword(javaFile)) {
-            return Violation(javaFile.className(), "Uses the 'else' keyword.")
+            return RoomForImprovement(javaFile, "Uses the 'else' keyword.")
         }
-        return Conformant()
+        return AllFine(javaFile)
     }
 
     private fun usesElseKeyword(javaFile: JavaFile): Boolean {

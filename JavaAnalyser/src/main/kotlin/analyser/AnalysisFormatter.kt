@@ -3,10 +3,10 @@ package analyser
 import java.util.*
 
 class AnalysisFormatter {
-    fun format(evaluations: List<ConstraintEvaluation>): String {
+    fun format(feedbacks: List<JavaFileFeedback>): String {
         val joiner = StringJoiner(",")
-        for (evaluation in evaluations) {
-            evaluation.addJsonValueTo(joiner)
+        for (feedback in feedbacks) {
+            feedback.addJsonValueTo(joiner)
         }
         return "{\"evaluations\": [$joiner]}"
     }

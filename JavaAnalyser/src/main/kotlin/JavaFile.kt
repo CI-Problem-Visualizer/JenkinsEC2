@@ -2,6 +2,7 @@ import com.github.javaparser.JavaParser
 import com.github.javaparser.ParseException
 import com.github.javaparser.ParseResult
 import com.github.javaparser.ast.CompilationUnit
+import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import org.http4k.core.Body
 import org.http4k.core.Request
@@ -31,6 +32,33 @@ class JavaFile(private val className: String, private val fileContent: String) {
     }
 
     fun parse(): ClassOrInterfaceDeclaration {
+        val compilationUnit: CompilationUnit = compilationUnit()
+        val optionalClassByName: Optional<ClassOrInterfaceDeclaration> =
+            compilationUnit.getClassByName(className())
+        if (optionalClassByName.isPresent) {
+            return optionalClassByName.get()
+        }
+        val optionalInterfaceByName: Optional<ClassOrInterfaceDeclaration> =
+            compilationUnit.getInterfaceByName(className())
+        if (optionalInterfaceByName.isPresent) {
+            return optionalInterfaceByName.get()
+        }
+        throw IllegalArgumentException("Filename doesn't match name of declared class/interface in the source")
+    }
+
+    fun fullyQualifiedClassName(): String {
+        val compilationUnit: CompilationUnit = compilationUnit()
+        val optionalPackageDeclaration: Optional<PackageDeclaration> =
+            compilationUnit.packageDeclaration
+        if (!optionalPackageDeclaration.isPresent) {
+            return className
+        }
+        val packageDeclaration: PackageDeclaration =
+            optionalPackageDeclaration.get()
+        return "${packageDeclaration.nameAsString}.${className}"
+    }
+
+    private fun compilationUnit(): CompilationUnit {
         val parseResult: ParseResult<CompilationUnit> =
             JavaParser().parse(fileContent())
         if (!parseResult.isSuccessful) {
@@ -40,12 +68,6 @@ class JavaFile(private val className: String, private val fileContent: String) {
         if (!optionalResult.isPresent) {
             throw IllegalArgumentException(parseResult.toString())
         }
-        val compilationUnit: CompilationUnit = optionalResult.get()
-        val optionalClassByName: Optional<ClassOrInterfaceDeclaration> =
-            compilationUnit.getClassByName(className())
-        if (!optionalClassByName.isPresent) {
-            throw IllegalArgumentException("Filename doesn't match name of declared class in source")
-        }
-        return optionalClassByName.get()
+        return optionalResult.get()
     }
 }

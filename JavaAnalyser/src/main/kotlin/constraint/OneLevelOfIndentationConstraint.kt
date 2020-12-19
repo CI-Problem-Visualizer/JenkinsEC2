@@ -1,10 +1,10 @@
 package constraint
 
 import JavaFile
-import analyser.Conformant
+import analyser.AllFine
 import analyser.Constraint
-import analyser.ConstraintEvaluation
-import analyser.Violation
+import analyser.JavaFileFeedback
+import analyser.RoomForImprovement
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.stmt.*
@@ -13,15 +13,12 @@ import java.util.stream.Collectors.joining
 
 
 class OneLevelOfIndentationConstraint : Constraint {
-    override fun evaluate(javaFile: JavaFile): ConstraintEvaluation {
+    override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
-            return Violation(
-                javaFile.className(),
-                "More that one level of indentation."
-            )
+            return RoomForImprovement(javaFile, "More that one level of indentation.")
         }
 
-        return Conformant()
+        return AllFine(javaFile)
     }
 
     private fun hasMoreThanOneLevelOfIndentation(javaFile: JavaFile): Boolean {
