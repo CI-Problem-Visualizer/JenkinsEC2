@@ -15,7 +15,10 @@ import java.util.stream.Collectors.joining
 class OneLevelOfIndentationConstraint : Constraint {
     override fun evaluate(javaFile: JavaFile): ConstraintEvaluation {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
-            return Violation(javaFile.className(), "More that one level of indentation.")
+            return Violation(
+                javaFile.className(),
+                "More that one level of indentation."
+            )
         }
 
         return Conformant()
@@ -29,21 +32,22 @@ class OneLevelOfIndentationConstraint : Constraint {
             if (allBraces[i] == '}') nestingLevel--
             if (nestingLevel > 3) return true
         }
-        // This code is here due to the fact that JavaParser can't seem to parse class comments.
-        if (hasClassComment(javaFile)) {
-            return false
-        }
-        return hasMoreThanOneLevelOfIndentationInBlocksWithoutBraces(javaFile)
+        return hasMoreThanOneLevelOfIndentationInBlocksWithoutBraces(javaFile.withoutClassComment())
     }
 
     private fun extractSemanticBlocksOf(javaFile: JavaFile): String {
         val fileContent = javaFile.fileContent()
         val isCommentedLine: (String) -> Boolean = { line ->
             val trimmedLine = line.trim()
-            listOf("//", "*", "/*").none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
+            listOf(
+                "//",
+                "*",
+                "/*"
+            ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
         }
         val fileContentWithoutComments =
-            fileContent.lines().filter(isCommentedLine).stream().collect(joining())
+            fileContent.lines().filter(isCommentedLine).stream()
+                .collect(joining())
         return fileContentWithoutComments.filter { it in "{}" }
     }
 
@@ -120,26 +124,6 @@ class OneLevelOfIndentationConstraint : Constraint {
             super.visit(n, arg)
             decreaseIndentationLevel()
         }
-    }
-
-    /**
-     * This method is here because JavaParser fails when trying to parse the Java file in
-     * `src/test/resources/test-data-files/one-level-of-indentation/TwoSingleIfsBracesInComments`, which I believe is
-     * due to its inability to correctly parse the comments, as indicated by the error message:
-     * (line 1,col 102) Parse error. Found <EOF>, expected "}"
-     */
-    private fun hasClassComment(javaFile: JavaFile): Boolean {
-        val fileContent = javaFile.fileContent()
-        val lines = fileContent.split("\r\n")
-        val lineHasClassOrInterfaceDeclaration: (String) -> Boolean = { line ->
-            listOf("class", "interface", "enum", "abstract", "final", "private", "public", "protected")
-                .none { line.trim().startsWith(it) }
-        }
-        val linesBeforeTheClassDeclaration = lines.takeWhile(lineHasClassOrInterfaceDeclaration)
-        val isCommentedLine: (String) -> Boolean = { line ->
-            listOf("//", "*", "/*").none { line.startsWith(it) } && !line.endsWith("*/")
-        }
-        return linesBeforeTheClassDeclaration.any(isCommentedLine)
     }
 }
 

@@ -8,6 +8,11 @@ class OneLevelOfIndentationConstraintTest {
     private val constraint = OneLevelOfIndentationConstraint()
 
     @Test
+    fun `skips over class comments`() {
+        assertConstraintNotMet(constraint, "one-level-of-indentation/IfInForWithClassComment.java")
+    }
+
+    @Test
     fun `passes when 'if' statement is followed by 'for' loop`() {
         assertConstraintMet(constraint, "one-level-of-indentation/IfThenFor.java")
     }
