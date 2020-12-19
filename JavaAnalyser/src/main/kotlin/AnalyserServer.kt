@@ -13,6 +13,13 @@ class AnalyserServer {
         val constraints = listOf(
                 OneLevelOfIndentationConstraint(),
                 NoElseKeywordConstraint()
+                // Wrap all primitives and Strings
+                // First class collections
+                // One dot per line
+                // Don't abbreviate
+                // Keep all entities small
+                // No classes with more than two instance variables
+                // No getters/setters/properties
         )
         return app(logger, Analyser(logger, constraints))
     }
