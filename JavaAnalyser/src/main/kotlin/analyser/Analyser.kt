@@ -26,6 +26,11 @@ class Analyser(
             logger.info(javaFile.toString())
             val feedbacks: List<JavaFileFeedback> = analyse(javaFile)
             logger.info(feedbacks.toString())
-            Response(Status.OK).body(AnalysisFormatter().format(feedbacks))
+            Response(Status.OK).body(
+                AnalysisReport(
+                    javaFile,
+                    feedbacks
+                ).toJson()
+            )
         }
 }

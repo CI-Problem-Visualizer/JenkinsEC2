@@ -5,24 +5,18 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
 
-class AnalysisFormatterTest {
+class AnalysisReportTest {
     @Test
     fun `violations are included in the list of evaluations`() {
         assertThat(
-            AnalysisFormatter().format(
-                listOf(
-                    RoomForImprovement(
-                        JavaFile(
-                            "SomeClass",
-                            "public class SomeClass {}"
-                        ), "Oh no!"
-                    )
-                )
-            ),
+            AnalysisReport(
+                JavaFile("SomeClass", "public class SomeClass {}"),
+                listOf(RoomForImprovement("Oh no!"))
+            ).toJson(),
             equalTo(
                 "{" +
+                        "\"fullyQualifiedClassName\": \"SomeClass\", " +
                         "\"evaluations\": [{" +
-                        "\"className\": \"SomeClass\", " +
                         "\"feedback\": \"Oh no!\"" +
                         "}]" +
                         "}"
@@ -33,20 +27,14 @@ class AnalysisFormatterTest {
     @Test
     fun `conformant files are empty objects in the list of evaluations`() {
         assertThat(
-            AnalysisFormatter().format(
-                listOf(
-                    AllFine(
-                        JavaFile(
-                            "SomeClass",
-                            "public class SomeClass {}"
-                        )
-                    )
-                )
-            ),
+            AnalysisReport(
+                JavaFile("SomeClass", "public class SomeClass {}"),
+                listOf(AllFine())
+            ).toJson(),
             equalTo(
                 "{" +
+                        "\"fullyQualifiedClassName\": \"SomeClass\", " +
                         "\"evaluations\": [{" +
-                        "\"className\": \"SomeClass\", " +
                         "\"feedback\": \"All fine\"" +
                         "}]" +
                         "}"
@@ -57,8 +45,16 @@ class AnalysisFormatterTest {
     @Test
     fun `empty list`() {
         assertThat(
-            AnalysisFormatter().format(emptyList()),
-            equalTo("{\"evaluations\": []}")
+            AnalysisReport(
+                JavaFile("SomeClass", "public class SomeClass {}"),
+                emptyList()
+            ).toJson(),
+            equalTo(
+                "{" +
+                        "\"fullyQualifiedClassName\": \"SomeClass\", " +
+                        "\"evaluations\": []" +
+                        "}"
+            )
         )
     }
 }

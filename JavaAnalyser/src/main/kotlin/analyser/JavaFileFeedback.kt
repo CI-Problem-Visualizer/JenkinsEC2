@@ -1,21 +1,16 @@
 package analyser
 
-import JavaFile
 import java.util.*
 
 sealed class JavaFileFeedback(
-    private val javaFile: JavaFile,
-    private val feedbackMessage: String
+    private val feedbackJson: String
 ) {
     fun addJsonValueTo(joiner: StringJoiner) {
-        joiner.add("{\"className\": \"${javaFile.fullyQualifiedClassName()}\", \"feedback\": ${feedbackMessage}}")
+        joiner.add("{\"feedback\": ${feedbackJson}}")
     }
 }
 
-class AllFine(javaFile: JavaFile) :
-    JavaFileFeedback(javaFile, "\"All fine\"")
+class AllFine : JavaFileFeedback("\"All fine\"")
 
-class RoomForImprovement(
-    javaFile: JavaFile,
-    feedbackMessage: String
-) : JavaFileFeedback(javaFile, "\"${feedbackMessage}\"")
+class RoomForImprovement(feedbackMessage: String) :
+    JavaFileFeedback("\"${feedbackMessage}\"")

@@ -15,10 +15,10 @@ import java.util.stream.Collectors.joining
 class OneLevelOfIndentationConstraint : Constraint {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
-            return RoomForImprovement(javaFile, "More that one level of indentation.")
+            return RoomForImprovement("More that one level of indentation.")
         }
 
-        return AllFine(javaFile)
+        return AllFine()
     }
 
     private fun hasMoreThanOneLevelOfIndentation(javaFile: JavaFile): Boolean {

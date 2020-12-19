@@ -13,9 +13,9 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 class NoElseKeywordConstraint : Constraint {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (usesElseKeyword(javaFile)) {
-            return RoomForImprovement(javaFile, "Uses the 'else' keyword.")
+            return RoomForImprovement("Uses the 'else' keyword.")
         }
-        return AllFine(javaFile)
+        return AllFine()
     }
 
     private fun usesElseKeyword(javaFile: JavaFile): Boolean {

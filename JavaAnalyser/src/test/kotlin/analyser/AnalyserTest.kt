@@ -20,21 +20,17 @@ class AnalyserTest {
 
 
     @Test
-    fun `reports conformance when given`() {
-        val conformance =
-            AllFine(JavaFile("SomeClass", "public class SomeClass {}"))
-        val analyser = Analyser(logger, listOf(Constraint { conformance }))
-        assertThat(analyser.analyse(javaFile), hasElement(conformance))
+    fun `can report that everything is fine`() {
+        val feedback = AllFine()
+        val analyser = Analyser(logger, listOf(Constraint { feedback }))
+        assertThat(analyser.analyse(javaFile), hasElement(feedback))
     }
 
     @Test
     fun `reports violations when given`() {
-        val violation = RoomForImprovement(
-            JavaFile("SomeClass", "public class SomeClass {}"),
-            "Oh no!"
-        )
-        val analyser = Analyser(logger, listOf(Constraint { violation }))
-        assertThat(analyser.analyse(javaFile), hasElement(violation))
+        val feedback = RoomForImprovement("Oh no!")
+        val analyser = Analyser(logger, listOf(Constraint { feedback }))
+        assertThat(analyser.analyse(javaFile), hasElement(feedback))
     }
 
     @Test
