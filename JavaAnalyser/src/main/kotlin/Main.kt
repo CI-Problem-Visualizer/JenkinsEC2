@@ -14,4 +14,5 @@ class Main {
 }
 
 fun createObjectCalisthenicsServer(port: Int): Http4kServer =
-        routes("/object-calisthenics-report" bind AnalyserServer().app()).asServer(Netty(port))
+    routes("/code-analysis" bind AnalyserServer().analysis())
+        .asServer(Netty(port))

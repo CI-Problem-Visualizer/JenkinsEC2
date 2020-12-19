@@ -8,23 +8,26 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 class AnalyserServer {
-    fun app(): (Request) -> Response {
+    fun analysis(): (Request) -> Response {
         val logger = LoggerFactory.getLogger(AnalyserServer::class.java)
         val constraints = listOf(
-                OneLevelOfIndentationConstraint(),
-                NoElseKeywordConstraint()
-                // Wrap all primitives and Strings
-                // First class collections
-                // One dot per line
-                // Don't abbreviate
-                // Keep all entities small
-                // No classes with more than two instance variables
-                // No getters/setters/properties
+            OneLevelOfIndentationConstraint(),
+            NoElseKeywordConstraint()
+            // Wrap all primitives and Strings
+            // First class collections
+            // One dot per line
+            // Don't abbreviate
+            // Keep all entities small
+            // No classes with more than two instance variables
+            // No getters/setters/properties
         )
-        return app(logger, Analyser(logger, constraints))
+        return analysis(logger, Analyser(logger, constraints))
     }
 
-    private fun app(logger: Logger, analyser: Analyser): (Request) -> Response {
+    private fun analysis(
+        logger: Logger,
+        analyser: Analyser
+    ): (Request) -> Response {
         logger.info("Creating analysis application")
         return { request: Request ->
             try {

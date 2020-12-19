@@ -32,7 +32,7 @@ class MainTest {
     @Test
     fun `without a request body the response is bad request`() {
         assertThat(
-                client(Request(POST, "http://${socket()}/object-calisthenics-report")),
+                client(Request(POST, "http://${socket()}/code-analysis")),
                 hasStatus(BAD_REQUEST))
     }
 
@@ -43,7 +43,7 @@ class MainTest {
                 "\"fileContent\": \"public class MyClass {}\"" +
                 "}")
         assertThat(
-                client(Request(POST, "http://${socket()}/object-calisthenics-report").body(body)),
+                client(Request(POST, "http://${socket()}/code-analysis").body(body)),
                 hasStatus(OK))
     }
 }
