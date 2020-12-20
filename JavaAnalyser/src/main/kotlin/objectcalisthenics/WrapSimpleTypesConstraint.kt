@@ -6,6 +6,7 @@ import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
 import analyser.RoomForImprovement
 import com.github.javaparser.ast.body.FieldDeclaration
+import com.github.javaparser.ast.type.PrimitiveType
 import com.github.javaparser.ast.type.Type
 
 class WrapSimpleTypesConstraint : CodeAnalysis {
@@ -32,39 +33,26 @@ class WrapSimpleTypesConstraint : CodeAnalysis {
                         "'Helper' or 'Utils' classes."
             )
         }
-
         return AllFine()
     }
 
     private fun hasSimpleType(f: FieldDeclaration): Boolean {
-        val elementType = f.elementType
-        return isPrimitiveType(elementType) or
-                listOf(
-                    "String",
-                    "Integer",
-                    "Short",
-                    "Character",
-                    "Long",
-                    "Byte",
-                    "Float",
-                    "Double",
-                    "Boolean"
-                ).any { hasType(elementType, it) }
+        val fieldType = f.elementType
+        return fieldType.isPrimitiveType or
+                PrimitiveType.Primitive.values()
+                    .map { it.toBoxedType().name.asString() }
+                    .plus("String")
+                    .any { fieldType.hasElementTypeName(it) }
     }
+}
 
-    private fun isPrimitiveType(elementType: Type) = elementType.isPrimitiveType
-
-    private fun hasType(
-        elementType: Type,
-        soughtTypeName: String
-    ): Boolean {
-        val typeName = elementType.toString().filter { !it.isWhitespace() }
-        if (typeName == soughtTypeName) {
-            return true
-        }
-        return typeName.contains("<$soughtTypeName>") ||
-                typeName.contains("<$soughtTypeName,") ||
-                typeName.contains(",$soughtTypeName>") ||
-                typeName.contains(",$soughtTypeName,")
+private fun Type.hasElementTypeName(elementTypeName: String): Boolean {
+    val name = toString().filter { !it.isWhitespace() }
+    if (name == elementTypeName) {
+        return true
     }
+    return name.contains("<$elementTypeName>") ||
+            name.contains("<$elementTypeName,") ||
+            name.contains(",$elementTypeName>") ||
+            name.contains(",$elementTypeName,")
 }
