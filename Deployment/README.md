@@ -6,22 +6,14 @@
   `terraform destroy`. You can also use `./node_bounce.sh`.
 - Set up Jenkins on the EC2 instance with `./node_bootstrap.sh`.
 - (If necessary) SSH into the machine with `./node_ssh.sh`.
-- Get the initial password for Jenkins using `./jenkins_initial_password.sh`.
+- (If necessary) Download the Jenkins CLI tool from the Jenkins server using
+  `./jenkins_cli_download.sh`
+- Create the initial Jenkins user according to the credentials
+  in `jenkins_creds.txt` by using `./jenkins_create_user.py`
 - Get the EC2 IP address using `./node_ip.sh` and go there in the browser to
   port 8080, to begin Jenkins setup.
 - When asked which plugins to install choose "Choose my own plugins", and then
   install none. There is a script to install exactly the set of plugins we need.
-- Set up the admin user with the following details:
-
-```
-Username: JenkinsAdmin
-Password: (See jenkins_creds.txt)
-Confirm Password: (See jenkins_creds.txt)
-Full name: JenkinsAdmin
-```
-
-- (If necessary) Download the Jenkins CLI tool from the Jenkins server using
-  `./jenkins_cli_download.sh`
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins.
   The downloads can be flaky, so you may have to ctrl-C the script and re-run
   it, maybe even more than once. Eventually though it'll make it to the end.
