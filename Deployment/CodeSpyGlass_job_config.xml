@@ -17,7 +17,7 @@
         <hudson.model.StringParameterDefinition>
           <name>GitHubLink</name>
           <description>The GitHub URL of the code to look at</description>
-          <defaultValue>https://github.com/robmoore-i/AccountingCalisthenics</defaultValue>
+          <defaultValue>https://github.com/robmoore-i/LSystems</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>

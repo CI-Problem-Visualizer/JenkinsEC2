@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 class AnalyserServer {
     fun analysis(): (Request) -> Response {
         val logger = LoggerFactory.getLogger(AnalyserServer::class.java)
-        val codeAnalyses: List<CodeAnalysis> = ObjectCalisthenicsConstraints()
+        val codeAnalyses: List<CodeAnalysis> = ObjectCalisthenicsConstraints
         val analysis = analysis(logger, Analyser(logger, codeAnalyses))
         logger.info("Running analysis application")
         return analysis

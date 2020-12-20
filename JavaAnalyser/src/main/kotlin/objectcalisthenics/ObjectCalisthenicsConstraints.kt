@@ -2,7 +2,7 @@ package objectcalisthenics
 
 import analyser.CodeAnalysis
 
-class ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
+object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
     init {
         addAll(
             listOf(
