@@ -14,7 +14,7 @@ class AnalysisReport(
         }
         return "{" +
                 "\"fullyQualifiedClassName\": \"${javaFile.fullyQualifiedClassName()}\", " +
-                "\"evaluations\": [${joiner}]" +
+                "\"feedbacks\": [${joiner}]" +
                 "}"
     }
 }

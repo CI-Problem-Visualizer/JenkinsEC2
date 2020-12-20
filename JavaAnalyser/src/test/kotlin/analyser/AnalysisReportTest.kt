@@ -16,7 +16,7 @@ class AnalysisReportTest {
             equalTo(
                 "{" +
                         "\"fullyQualifiedClassName\": \"SomeClass\", " +
-                        "\"evaluations\": [{" +
+                        "\"feedbacks\": [{" +
                         "\"feedback\": \"Oh no!\"" +
                         "}]" +
                         "}"
@@ -25,7 +25,7 @@ class AnalysisReportTest {
     }
 
     @Test
-    fun `conformant files are empty objects in the list of evaluations`() {
+    fun `conformant files are empty objects in the list of feedbacks`() {
         assertThat(
             AnalysisReport(
                 JavaFile("SomeClass", "public class SomeClass {}"),
@@ -34,7 +34,7 @@ class AnalysisReportTest {
             equalTo(
                 "{" +
                         "\"fullyQualifiedClassName\": \"SomeClass\", " +
-                        "\"evaluations\": []" +
+                        "\"feedbacks\": []" +
                         "}"
             )
         )
@@ -50,7 +50,7 @@ class AnalysisReportTest {
             equalTo(
                 "{" +
                         "\"fullyQualifiedClassName\": \"SomeClass\", " +
-                        "\"evaluations\": []" +
+                        "\"feedbacks\": []" +
                         "}"
             )
         )
