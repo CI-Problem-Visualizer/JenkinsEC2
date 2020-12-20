@@ -38,20 +38,33 @@ class WrapSimpleTypesConstraint : CodeAnalysis {
 
     private fun hasSimpleType(f: FieldDeclaration): Boolean {
         val elementType = f.elementType
-        return isPrimitiveType(elementType) or isStringType(elementType)
+        return isPrimitiveType(elementType) or
+                listOf(
+                    "String",
+                    "Integer",
+                    "Short",
+                    "Character",
+                    "Long",
+                    "Byte",
+                    "Float",
+                    "Double",
+                    "Boolean"
+                ).any { hasType(elementType, it) }
     }
 
-    private fun isPrimitiveType(elementType: Type) =
-        elementType.isPrimitiveType
+    private fun isPrimitiveType(elementType: Type) = elementType.isPrimitiveType
 
-    private fun isStringType(elementType: Type): Boolean {
+    private fun hasType(
+        elementType: Type,
+        soughtTypeName: String
+    ): Boolean {
         val typeName = elementType.toString().filter { !it.isWhitespace() }
-        if (typeName == "String") {
+        if (typeName == soughtTypeName) {
             return true
         }
-        return typeName.contains("<String>") ||
-                typeName.contains("<String,") ||
-                typeName.contains(",String>") ||
-                typeName.contains(",String,")
+        return typeName.contains("<$soughtTypeName>") ||
+                typeName.contains("<$soughtTypeName,") ||
+                typeName.contains(",$soughtTypeName>") ||
+                typeName.contains(",$soughtTypeName,")
     }
 }
