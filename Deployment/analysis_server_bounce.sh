@@ -11,7 +11,7 @@ scp -i jenkins_server_keys.pem \
   "ubuntu@${NODE_IP}:/home/ubuntu"
 
 # Run JAR
-ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" << 'EOF'
+ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" <<'EOF'
   command -v java
   JAVA_MISSING=$?
   if [[ $JAVA_MISSING == "1" ]]
@@ -25,17 +25,12 @@ ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" << 'EOF'
   PORT=$(lsof -t -i :9000)
   if [[ $PORT != "" ]]
   then
-    echo "Killing previously running server"
+    echo "Killing previously running analysis server"
     kill $PORT
   fi
 
+  echo "Running analysis server"
   nohup java -jar JavaAnalyser-1.0-SNAPSHOT.jar > analyser-log.txt 2>&1 &
   sleep 3
   cat analyser-log.txt
 EOF
-
-
-
-
-
-

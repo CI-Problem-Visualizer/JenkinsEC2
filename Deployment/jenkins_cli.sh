@@ -1,5 +1,4 @@
-if [[ ! -e jenkins-cli.jar ]]
-then
+if [[ ! -e jenkins-cli.jar ]]; then
   echo ""
   echo "Download the jenkins CLI tool first."
   echo ""

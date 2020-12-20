@@ -21,14 +21,15 @@ class AnalyserServer {
             // No classes with more than two instance variables
             // No getters/setters/properties
         )
-        return analysis(logger, Analyser(logger, constraints))
+        val analysis = analysis(logger, Analyser(logger, constraints))
+        logger.info("Running analysis application")
+        return analysis
     }
 
     private fun analysis(
         logger: Logger,
         analyser: Analyser
     ): (Request) -> Response {
-        logger.info("Creating analysis application")
         return { request: Request ->
             try {
                 logger.info(request.toString())

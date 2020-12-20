@@ -1,5 +1,4 @@
-if [[ ! -e jenkins-cli.jar ]]
-then
+if [[ ! -e jenkins-cli.jar ]]; then
   echo ""
   echo "Download the jenkins CLI tool first."
   echo ""
@@ -10,7 +9,7 @@ NODE_IP=$(./node_ip.sh)
 
 echo "You can view the progress of these installations at http://${NODE_IP}:8080/updateCenter/"
 
-function install_plugin {
+function install_plugin() {
   ./jenkins_cli.sh install-plugin "$1" -deploy
 }
 
