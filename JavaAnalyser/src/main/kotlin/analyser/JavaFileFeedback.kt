@@ -6,7 +6,7 @@ sealed class JavaFileFeedback(
     private val feedbackJson: String
 ) {
     open fun addJsonValueTo(joiner: StringJoiner) {
-        joiner.add("{\"feedback\": ${feedbackJson}}")
+        joiner.add(feedbackJson)
     }
 }
 

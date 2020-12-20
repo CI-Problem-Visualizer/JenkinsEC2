@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class AnalysisReportTest {
     @Test
-    fun `violations are included in the list of evaluations`() {
+    fun `room for improvement feedback is included in the list of feedbacks`() {
         assertThat(
             AnalysisReport(
                 JavaFile("SomeClass", "public class SomeClass {}"),
@@ -16,16 +16,14 @@ class AnalysisReportTest {
             equalTo(
                 "{" +
                         "\"fullyQualifiedClassName\": \"SomeClass\", " +
-                        "\"feedbacks\": [{" +
-                        "\"feedback\": \"Oh no!\"" +
-                        "}]" +
+                        "\"feedbacks\": [\"Oh no!\"]" +
                         "}"
             )
         )
     }
 
     @Test
-    fun `conformant files are empty objects in the list of feedbacks`() {
+    fun `files which are all fine don't generate noisy extra feedback`() {
         assertThat(
             AnalysisReport(
                 JavaFile("SomeClass", "public class SomeClass {}"),
@@ -41,7 +39,7 @@ class AnalysisReportTest {
     }
 
     @Test
-    fun `empty list`() {
+    fun `feedbacks json array is empty if there is no feedback reported`() {
         assertThat(
             AnalysisReport(
                 JavaFile("SomeClass", "public class SomeClass {}"),
