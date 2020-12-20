@@ -34,9 +34,7 @@ class AnalysisReportTest {
             equalTo(
                 "{" +
                         "\"fullyQualifiedClassName\": \"SomeClass\", " +
-                        "\"evaluations\": [{" +
-                        "\"feedback\": \"All fine\"" +
-                        "}]" +
+                        "\"evaluations\": []" +
                         "}"
             )
         )
