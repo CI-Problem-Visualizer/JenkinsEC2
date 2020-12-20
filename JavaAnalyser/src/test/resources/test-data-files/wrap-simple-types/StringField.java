@@ -1,0 +1,3 @@
+class StringField {
+    String a;
+}

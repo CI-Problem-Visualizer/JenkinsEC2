@@ -15,7 +15,15 @@ import java.util.stream.Collectors.joining
 class OneLevelOfIndentationConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
-            return RoomForImprovement("More that one level of indentation.")
+            return RoomForImprovement(
+                "This code has more than one level of indentation. This may " +
+                        "be an indication that you have methods which are " +
+                        "doing more than one thing, which limits your " +
+                        "possibility to re-use them, and also makes it " +
+                        "harder to come up with intention-revealing names " +
+                        "for them. Consider extracting behaviour out from " +
+                        "these methods."
+            )
         }
 
         return AllFine()
