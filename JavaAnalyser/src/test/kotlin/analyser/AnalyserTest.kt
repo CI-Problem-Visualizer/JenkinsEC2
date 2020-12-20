@@ -15,7 +15,7 @@ class AnalyserTest {
         LoggerFactory.getLogger(AnalyserTest::class.java)
     private val javaFile = JavaFile(
         "EmptyClass.java",
-        TestDataFiles.contentOf("end-to-end/EmptyClass.java")
+        "class EmptyClass {\n}"
     )
 
 
