@@ -29,7 +29,7 @@ class WrapSimpleTypesConstraint : CodeAnalysis {
                         "and prevent coupling between behaviour which is " +
                         "unrelated in the domain, which would otherwise " +
                         "surface as a result of the growth of these " +
-                        "'Helper'/'Utils' classes."
+                        "'Helper' or 'Utils' classes."
             )
         }
 
