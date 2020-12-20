@@ -102,6 +102,15 @@ class OneLevelOfIndentationConstraint : CodeAnalysis {
 
         override fun visit(n: IfStmt?, arg: Void?) {
             increaseIndentationLevel()
+
+            // This is here because when there are multiple if-else statements
+            // in a cascade, then they are visited in order and the program
+            // would otherwise consider each of them as their own nesting level.
+            // This conditional statement prevents that.
+            if (n?.hasCascadingIfStmt() == true) {
+                decreaseIndentationLevel()
+            }
+
             super.visit(n, arg)
             decreaseIndentationLevel()
         }

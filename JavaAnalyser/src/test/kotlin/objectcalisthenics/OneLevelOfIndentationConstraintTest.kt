@@ -8,6 +8,11 @@ class OneLevelOfIndentationConstraintTest {
     private val constraint = OneLevelOfIndentationConstraint()
 
     @Test
+    fun `can handle a cascading if-else block`() {
+        assertConstraintMet(constraint, "one-level-of-indentation/DragonCurveCommandInterpreter.java")
+    }
+
+    @Test
     fun `skips over class comments`() {
         assertConstraintNotMet(constraint, "one-level-of-indentation/IfInForWithClassComment.java")
     }
