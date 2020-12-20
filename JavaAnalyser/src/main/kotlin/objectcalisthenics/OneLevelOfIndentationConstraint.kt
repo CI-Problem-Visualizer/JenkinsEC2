@@ -11,7 +11,6 @@ import com.github.javaparser.ast.stmt.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import java.util.stream.Collectors.joining
 
-
 class OneLevelOfIndentationConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
