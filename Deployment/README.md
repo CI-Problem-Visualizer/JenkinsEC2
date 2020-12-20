@@ -22,8 +22,7 @@
   script execution), and check the box at the bottom which says that it will
   make Jenkins restart. This should then immediately cause Jenkins to begin
   restarting. The restart should not take long at all, just a few seconds.
-- Run `./jenkins_create_job.sh CodeSpyGlass_config.xml` to create the
-  CodeSpyGlass pipeline job
+- Run `./jenkins_create_job.sh` to create the CodeSpyGlass pipeline job.
 - Set up the global pipeline library by going to
   'Manage Jenkins > Configure System > Global Pipeline Libraries' and configure
   it as follows:
