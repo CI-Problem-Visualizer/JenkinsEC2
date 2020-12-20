@@ -1,7 +1,7 @@
-package constraint
+package objectcalisthenics
 
-import constraint.ConstraintAssertion.assertConstraintMet
-import constraint.ConstraintAssertion.assertConstraintNotMet
+import objectcalisthenics.ConstraintAssertion.assertConstraintMet
+import objectcalisthenics.ConstraintAssertion.assertConstraintNotMet
 import org.junit.jupiter.api.Test
 
 class NoElseKeywordConstraintTest {

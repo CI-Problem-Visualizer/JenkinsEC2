@@ -8,12 +8,12 @@ import org.slf4j.Logger
 
 class Analyser(
     private val logger: Logger,
-    private val constraints: List<Constraint>
+    private val codeAnalyses: List<CodeAnalysis>
 ) {
     fun analyse(javaFile: JavaFile): List<JavaFileFeedback> {
         val feedbacks = mutableListOf<JavaFileFeedback>()
-        for (constraint in constraints) {
-            feedbacks.add(constraint.evaluate(javaFile))
+        for (analysis in codeAnalyses) {
+            feedbacks.add(analysis.evaluate(javaFile))
         }
         return feedbacks
     }

@@ -1,8 +1,8 @@
-package constraint
+package objectcalisthenics
 
 import JavaFile
 import analyser.AllFine
-import analyser.Constraint
+import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
 import analyser.RoomForImprovement
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
@@ -12,7 +12,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import java.util.stream.Collectors.joining
 
 
-class OneLevelOfIndentationConstraint : Constraint {
+class OneLevelOfIndentationConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (hasMoreThanOneLevelOfIndentation(javaFile)) {
             return RoomForImprovement("More that one level of indentation.")

@@ -2,6 +2,6 @@ package analyser
 
 import JavaFile
 
-fun interface Constraint {
+fun interface CodeAnalysis {
     fun evaluate(javaFile: JavaFile): JavaFileFeedback
 }

@@ -22,14 +22,14 @@ class AnalyserTest {
     @Test
     fun `can report that everything is fine`() {
         val feedback = AllFine()
-        val analyser = Analyser(logger, listOf(Constraint { feedback }))
+        val analyser = Analyser(logger, listOf(CodeAnalysis { feedback }))
         assertThat(analyser.analyse(javaFile), hasElement(feedback))
     }
 
     @Test
     fun `reports violations when given`() {
         val feedback = RoomForImprovement("Oh no!")
-        val analyser = Analyser(logger, listOf(Constraint { feedback }))
+        val analyser = Analyser(logger, listOf(CodeAnalysis { feedback }))
         assertThat(analyser.analyse(javaFile), hasElement(feedback))
     }
 

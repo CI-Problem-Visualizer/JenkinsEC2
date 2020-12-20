@@ -1,8 +1,8 @@
-package constraint
+package objectcalisthenics
 
 import JavaFile
 import analyser.AllFine
-import analyser.Constraint
+import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
 import analyser.RoomForImprovement
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
@@ -10,7 +10,7 @@ import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.stmt.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 
-class NoElseKeywordConstraint : Constraint {
+class NoElseKeywordConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
         if (usesElseKeyword(javaFile)) {
             return RoomForImprovement("Uses the 'else' keyword.")
