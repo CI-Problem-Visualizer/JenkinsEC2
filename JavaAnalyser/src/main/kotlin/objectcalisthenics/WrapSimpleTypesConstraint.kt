@@ -44,8 +44,8 @@ class WrapSimpleTypesConstraint : CodeAnalysis {
     private fun isPrimitiveType(elementType: Type) =
         elementType.isPrimitiveType
 
-    private fun isStringType(type: Type): Boolean {
-        val typeName = type.toString().filter { !it.isWhitespace() }
+    private fun isStringType(elementType: Type): Boolean {
+        val typeName = elementType.toString().filter { !it.isWhitespace() }
         if (typeName == "String") {
             return true
         }
