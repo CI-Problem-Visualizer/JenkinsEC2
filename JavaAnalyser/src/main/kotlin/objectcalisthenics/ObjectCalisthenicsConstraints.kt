@@ -8,8 +8,8 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
             listOf(
                 OneLevelOfIndentationConstraint(),
                 NoElseKeywordConstraint(),
-                WrapSimpleTypesConstraint()
-                // First class collections
+                WrapSimpleTypesConstraint(),
+                FirstClassCollectionsConstraint()
                 // One dot per line
                 // Don't abbreviate
                 // Keep all entities small
