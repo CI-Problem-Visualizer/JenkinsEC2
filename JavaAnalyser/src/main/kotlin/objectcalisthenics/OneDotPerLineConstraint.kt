@@ -8,14 +8,14 @@ import analyser.RoomForImprovement
 
 class OneDotPerLineConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
-        if (javaFile.fileContent().lines()
+        if (javaFile.fileContentWithoutComments().lines()
                 .any { line -> line.filter { it == '.' }.length > 1 }
         ) {
             return RoomForImprovement(
-                "This class contains a line with more " +
-                        "than one dot, which possibly indicates the presence " +
-                        "of feature envy. Code like this causes coupling " +
-                        "between clients of an interface, and the " +
+                "This class contains a line of source code with more " +
+                        "than one dot on it, which possibly indicates the " +
+                        "presence of feature envy. Code like this causes " +
+                        "coupling between clients of an interface, and the " +
                         "interface's implementation, which reduces the " +
                         "code's flexibility to changing requirements. You " +
                         "may be able to address this using the 'move method' " +

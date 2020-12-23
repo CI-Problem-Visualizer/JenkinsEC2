@@ -9,6 +9,11 @@ class OneDotPerLineConstraintTest {
     private val constraint: CodeAnalysis = OneDotPerLineConstraint()
 
     @Test
+    fun `ignores comments`() {
+        assertConstraintMet(constraint, "one-dot-per-line/ManyDotsInALineComment.java")
+    }
+
+    @Test
     fun `passes if there is no law of demeter violation`() {
         assertConstraintMet(constraint, "one-dot-per-line/AllOk.java")
     }
