@@ -40,19 +40,7 @@ class OneLevelOfIndentationConstraint : CodeAnalysis {
     }
 
     private fun extractSemanticBlocksOf(javaFile: JavaFile): String {
-        val fileContent = javaFile.fileContent()
-        val isCommentedLine: (String) -> Boolean = { line ->
-            val trimmedLine = line.trim()
-            listOf(
-                "//",
-                "*",
-                "/*"
-            ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
-        }
-        val fileContentWithoutComments =
-            fileContent.lines().filter(isCommentedLine).stream()
-                .collect(joining())
-        return fileContentWithoutComments.filter { it in "{}" }
+        return javaFile.fileContentWithoutComments().filter { it in "{}" }
     }
 
     private fun hasMoreThanOneLevelOfIndentationInBlocksWithoutBraces(javaFile: JavaFile): Boolean {

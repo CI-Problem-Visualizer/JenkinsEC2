@@ -8,6 +8,7 @@ import org.http4k.core.Body
 import org.http4k.core.Request
 import org.http4k.format.Jackson.auto
 import java.util.*
+import java.util.stream.Collectors
 
 class JavaFile(private val className: String, private val fileContent: String) {
     companion object {
@@ -25,6 +26,19 @@ class JavaFile(private val className: String, private val fileContent: String) {
 
     fun fileContent(): String {
         return fileContent
+    }
+
+    fun fileContentWithoutComments(): String {
+        val isCommentedLine: (String) -> Boolean = { line ->
+            val trimmedLine = line.trim()
+            listOf(
+                "//",
+                "*",
+                "/*"
+            ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
+        }
+        return fileContent.lines().filter(isCommentedLine).stream()
+            .collect(Collectors.joining("\n"))
     }
 
     fun className(): String {

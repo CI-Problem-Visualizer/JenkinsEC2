@@ -3,10 +3,96 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.http4k.core.Body
 import org.http4k.core.Method
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.http4k.core.Request.Companion as Request
 
 class JavaFileTest {
+    @Test
+    fun `can remove comments from file content`() {
+        val javaFile = JavaFile(
+            "ElseInComments", "/**\n" +
+                    " * the word else\n" +
+                    " */\n" +
+                    "public class ElseInComments {\n" +
+                    "    // the word else\n" +
+                    "    public int noProblem() {\n" +
+                    "        return 5;\n" +
+                    "    }\n" +
+                    "}"
+        )
+        assertEquals(
+            "public class ElseInComments {\n" +
+                    "    public int noProblem() {\n" +
+                    "        return 5;\n" +
+                    "    }\n" +
+                    "}",
+            javaFile.fileContentWithoutComments()
+        )
+    }
+
+    @Test
+    fun `can get file content without comments when there are none anyway`() {
+        val javaFile = JavaFile(
+            "ClassOverFiftyLines", "class ClassOverFiftyLines {\n" +
+                    "    public void thing() {\n" +
+                    "        if (1 == 2) {\n" +
+                    "            System.out.println(\"Hello\");\n" +
+                    "        }\n" +
+                    "        int j = 0;\n" +
+                    "        for (int i = 5; i < 10; i++) {\n" +
+                    "            j += i;\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    public int number() {\n" +
+                    "        int i = 4;\n" +
+                    "        int k = 2;\n" +
+                    "        if (i + k < 2) {\n" +
+                    "            k++;\n" +
+                    "        }\n" +
+                    "        return k * 6;\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    public Desk buildDesk(Nails nails, IkeaManual manual) {\n" +
+                    "        if (!manual.hasPages()) {\n" +
+                    "            throw new RuntimeException(\"The IKEA manual is fucked, we \" +\n" +
+                    "                    \"can't go on.\");\n" +
+                    "        }\n" +
+                    "        RawMaterials rawMaterials = new RawMaterials();\n" +
+                    "        HalfAssumbledThing abomination = manual.instructionSet()\n" +
+                    "                .applyTo(rawMaterials, nails);\n" +
+                    "        DeskFactory factory = deskFactory();\n" +
+                    "        return factory.assembleFrom(abomination);\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    private DeskFactory deskFactory() {\n" +
+                    "        AirConditioningUnit airCon = AirConditioningUnit.getInstance();\n" +
+                    "        airCon.makeRoomHotter();\n" +
+                    "        complain();\n" +
+                    "        airCon.makeRoomCooler();\n" +
+                    "        complain();\n" +
+                    "        if (Ikea.isOpen()) {\n" +
+                    "            return new IkeaDeskFactory();\n" +
+                    "        } else {\n" +
+                    "            return new ImprovisedDeskFactory(\n" +
+                    "                    new GcseDtKnowledge(),\n" +
+                    "                    new Spanner(),\n" +
+                    "                    new Incompetence());\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    private void complain() {\n" +
+                    "        System.out.println(\"This aircon sucks\");\n" +
+                    "    }\n" +
+                    "}"
+        )
+        assertEquals(
+            javaFile.fileContent(),
+            javaFile.fileContentWithoutComments()
+        )
+    }
+
     @Test
     fun `can parse interface`() {
         val javaFile = JavaFile(

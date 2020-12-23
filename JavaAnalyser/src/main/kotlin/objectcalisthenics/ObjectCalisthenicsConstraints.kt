@@ -10,9 +10,9 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 NoElseKeywordConstraint(),
                 WrapSimpleTypesConstraint(),
                 FirstClassCollectionsConstraint(),
-                OneDotPerLineConstraint()
+                OneDotPerLineConstraint(),
                 // Don't abbreviate
-                // Keep all entities small
+                KeepAllEntitiesSmallConstraint()
                 // No classes with more than two instance variables
                 // No getters/setters/properties
             )
