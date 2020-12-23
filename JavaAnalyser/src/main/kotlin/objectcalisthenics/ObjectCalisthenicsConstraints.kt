@@ -11,7 +11,6 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 WrapSimpleTypesConstraint(),
                 FirstClassCollectionsConstraint(),
                 OneDotPerLineConstraint()
-                // One dot per line
                 // Don't abbreviate
                 // Keep all entities small
                 // No classes with more than two instance variables
