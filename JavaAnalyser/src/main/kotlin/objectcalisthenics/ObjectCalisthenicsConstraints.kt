@@ -9,7 +9,8 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 OneLevelOfIndentationConstraint(),
                 NoElseKeywordConstraint(),
                 WrapSimpleTypesConstraint(),
-                FirstClassCollectionsConstraint()
+                FirstClassCollectionsConstraint(),
+                OneDotPerLineConstraint()
                 // One dot per line
                 // Don't abbreviate
                 // Keep all entities small
