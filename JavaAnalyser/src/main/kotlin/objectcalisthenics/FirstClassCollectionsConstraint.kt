@@ -14,7 +14,11 @@ class FirstClassCollectionsConstraint : CodeAnalysis {
             return AllFine()
         }
 
-        if (javaFile.fieldDeclarations().none { it.elementType.isCollectionType() }) {
+        if (!javaFile.fieldDeclarations().any {
+                it.elementType.isCollectionType() or
+                        it.toString().contains("[]")
+            }
+        ) {
             return AllFine()
         }
 
@@ -29,6 +33,9 @@ class FirstClassCollectionsConstraint : CodeAnalysis {
 }
 
 private fun Type.isCollectionType(): Boolean {
+    if (isArrayType) {
+        return true
+    }
     return toString().takeWhile { it != '<' }.run {
         listOf(
             "List",

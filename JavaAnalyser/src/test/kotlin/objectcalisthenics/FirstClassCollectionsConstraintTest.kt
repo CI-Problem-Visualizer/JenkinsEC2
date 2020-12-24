@@ -9,6 +9,11 @@ class FirstClassCollectionsConstraintTest {
     private val constraint: CodeAnalysis = FirstClassCollectionsConstraint()
 
     @Test
+    fun `treats arrays as collection types`() {
+        assertConstraintNotMet(constraint, "first-class-collections/ArrayField.java")
+    }
+
+    @Test
     fun `detects collection types with no type parameters specified`() {
         assertConstraintNotMet(constraint, "first-class-collections/NonGenericCollection.java")
     }
