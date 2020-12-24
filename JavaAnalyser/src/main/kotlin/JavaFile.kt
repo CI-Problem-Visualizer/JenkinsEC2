@@ -84,4 +84,9 @@ class JavaFile(private val className: String, private val fileContent: String) {
         }
         return optionalResult.get()
     }
+
+    fun numberOfFields(): Int =
+        parse().fields.map { it.variables.count() }.sum()
+
+    fun fieldDeclarations() = parse().fields
 }

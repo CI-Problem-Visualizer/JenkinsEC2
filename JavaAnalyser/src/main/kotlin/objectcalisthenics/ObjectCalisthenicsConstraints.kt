@@ -12,7 +12,8 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 FirstClassCollectionsConstraint(),
                 OneDotPerLineConstraint(),
                 // Don't abbreviate
-                KeepAllEntitiesSmallConstraint()
+                KeepAllEntitiesSmallConstraint(),
+                NoMoreThanTwoFieldsConstraint()
                 // No classes with more than two instance variables
                 // No getters/setters/properties
             )

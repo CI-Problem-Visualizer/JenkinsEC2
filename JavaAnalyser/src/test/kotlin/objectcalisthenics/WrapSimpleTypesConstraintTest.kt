@@ -8,6 +8,14 @@ class WrapSimpleTypesConstraintTest {
     private val constraint = WrapSimpleTypesConstraint()
 
     @Test
+    fun `fails for classes with a primitive type and more than two fields`() {
+        assertConstraintNotMet(
+            constraint,
+            "wrap-simple-types/MoreThanTwoFields.java"
+        )
+    }
+
+    @Test
     fun `fails for primitive wrappers like Integer in the same way as for String`() {
         assertConstraintNotMet(
             constraint,

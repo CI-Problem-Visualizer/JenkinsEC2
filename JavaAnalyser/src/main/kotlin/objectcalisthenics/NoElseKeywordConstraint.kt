@@ -5,7 +5,6 @@ import analyser.AllFine
 import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
 import analyser.RoomForImprovement
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.stmt.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
@@ -27,13 +26,12 @@ class NoElseKeywordConstraint : CodeAnalysis {
         if (!javaFile.fileContent().contains("else")) {
             return false
         }
-        val classByName: ClassOrInterfaceDeclaration = javaFile.parse()
         val methodContainsElseKeyword: (MethodDeclaration) -> Boolean = {
             val findElseKeywordVisitor = FindElseKeywordVisitor()
             it.accept(findElseKeywordVisitor, null)
             findElseKeywordVisitor.foundElseKeyword
         }
-        return classByName.methods.any(methodContainsElseKeyword)
+        return javaFile.parse().methods.any(methodContainsElseKeyword)
     }
 
     /**

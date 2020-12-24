@@ -10,12 +10,11 @@ import com.github.javaparser.ast.type.Type
 
 class FirstClassCollectionsConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
-        val fields: MutableList<FieldDeclaration> = javaFile.parse().fields
-        if (fields.size <= 1) {
+        if (javaFile.numberOfFields() <= 1) {
             return AllFine()
         }
 
-        if (fields.none { it.elementType.isCollectionType() }) {
+        if (javaFile.fieldDeclarations().none { it.elementType.isCollectionType() }) {
             return AllFine()
         }
 

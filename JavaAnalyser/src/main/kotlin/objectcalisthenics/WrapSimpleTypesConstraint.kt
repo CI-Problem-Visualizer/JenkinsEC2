@@ -11,13 +11,10 @@ import com.github.javaparser.ast.type.Type
 
 class WrapSimpleTypesConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {
-        val classOrInterfaceDeclaration = javaFile.parse()
-        val fields: MutableList<FieldDeclaration> =
-            classOrInterfaceDeclaration.fields
-        if (fields.size != 2) {
+        if (javaFile.numberOfFields() < 2) {
             return AllFine()
         }
-        if (fields.any(this::hasSimpleType)) {
+        if (javaFile.fieldDeclarations().any(this::hasSimpleType)) {
             return RoomForImprovement(
                 "This code uses primitive type fields " +
                         "without wrapping them into domain-specific types. " +
