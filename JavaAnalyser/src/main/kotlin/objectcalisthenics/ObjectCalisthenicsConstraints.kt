@@ -14,7 +14,6 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 // Don't abbreviate
                 KeepAllEntitiesSmallConstraint(),
                 NoMoreThanTwoFieldsConstraint()
-                // No classes with more than two instance variables
                 // No getters/setters/properties
             )
         )
