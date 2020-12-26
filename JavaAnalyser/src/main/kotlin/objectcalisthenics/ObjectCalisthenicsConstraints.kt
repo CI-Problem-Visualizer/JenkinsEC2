@@ -11,7 +11,6 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 WrapSimpleTypesConstraint(),
                 FirstClassCollectionsConstraint(),
                 OneDotPerLineConstraint(),
-                // Don't abbreviate
                 KeepAllEntitiesSmallConstraint(),
                 NoMoreThanTwoFieldsConstraint(),
                 TellDontAskConstraint()
