@@ -34,7 +34,9 @@ class TellDontAskConstraint : CodeAnalysis {
         val fieldNames = javaFile.fieldDeclarations()
             .flatMap { it.variables }
             .map { InstanceVariable(it) }
-        if (javaFile.parse().methods.any { it.isGetterOrSetter(fieldNames) }) {
+        if (javaFile.parse().methods.any {
+                it.isGetter(fieldNames) or it.isSetter(fieldNames)
+            }) {
             return RoomForImprovement(
                 "This class appears to have at least one getter/setter " +
                         "method. This is an example of the class exposing " +
@@ -58,15 +60,21 @@ class InstanceVariable(private val variableDeclarator: VariableDeclarator) {
     }
 }
 
-private fun MethodDeclaration.isGetterOrSetter(fieldNames: List<InstanceVariable>): Boolean {
-    val isGetterVisitor = IsGetterVisitor(fieldNames)
-    this.accept(isGetterVisitor, null)
-    if (isGetterVisitor.isGetter) {
-        return true
-    }
+private fun MethodDeclaration.bodyHasMoreThanOneLine() =
+    toString().lines().size > 3
 
+private fun MethodDeclaration.isGetter(fieldNames: List<InstanceVariable>): Boolean {
+    if (bodyHasMoreThanOneLine()) {
+        return false
+    }
+    val isGetterVisitor = IsGetterVisitor(fieldNames)
+    accept(isGetterVisitor, null)
+    return isGetterVisitor.isGetter
+}
+
+private fun MethodDeclaration.isSetter(fieldNames: List<InstanceVariable>): Boolean {
     val isSetterVisitor = IsSetterVisitor(this, fieldNames)
-    this.accept(isSetterVisitor, null)
+    accept(isSetterVisitor, null)
     return isSetterVisitor.isSetter
 }
 

@@ -9,7 +9,7 @@ class TellDontAskConstraintTest {
     private val constraint: CodeAnalysis = TellDontAskConstraint()
 
     @Test
-    fun `passes for method returning a local variable shadowing a field`() {
+    fun `passes for method returning a local variable shadowing a field but isn't a getter`() {
         assertConstraintMet(constraint, "tell-dont-ask/FieldNameShadowing.java")
     }
 
