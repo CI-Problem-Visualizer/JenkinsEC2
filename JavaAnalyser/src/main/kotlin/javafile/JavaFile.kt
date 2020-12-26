@@ -6,6 +6,7 @@ import com.github.javaparser.ParseResult
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
+import com.github.javaparser.ast.body.FieldDeclaration
 import org.http4k.core.Body
 import org.http4k.core.Request
 import org.http4k.format.Jackson.auto
@@ -82,5 +83,5 @@ class JavaFile(private val className: String, private val fileContent: String) {
     fun numberOfFields(): Int =
         parse().fields.map { it.variables.count() }.sum()
 
-    fun fieldDeclarations() = parse().fields
+    fun fieldDeclarations(): List<FieldDeclaration> = parse().fields
 }
