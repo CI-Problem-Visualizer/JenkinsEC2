@@ -1,7 +1,6 @@
 package analyser
 
-import JavaFile
-import TestDataFiles
+import javafile.JavaFile
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.isEmpty

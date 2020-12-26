@@ -1,11 +1,10 @@
 package objectcalisthenics
 
-import JavaFile
+import javafile.JavaFile
 import analyser.AllFine
 import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
 import analyser.RoomForImprovement
-import com.github.javaparser.ast.body.FieldDeclaration
 import com.github.javaparser.ast.type.Type
 
 class FirstClassCollectionsConstraint : CodeAnalysis {

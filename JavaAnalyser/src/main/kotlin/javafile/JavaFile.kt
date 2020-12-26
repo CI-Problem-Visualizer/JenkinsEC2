@@ -1,3 +1,5 @@
+package javafile
+
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ParseException
 import com.github.javaparser.ParseResult
@@ -8,9 +10,10 @@ import org.http4k.core.Body
 import org.http4k.core.Request
 import org.http4k.format.Jackson.auto
 import java.util.*
-import java.util.stream.Collectors
 
 class JavaFile(private val className: String, private val fileContent: String) {
+    private val commentRemover = CommentRemover()
+
     companion object {
         fun from(request: Request): JavaFile {
             val jacksonSafeRequestBody = request.bodyString()
@@ -29,25 +32,7 @@ class JavaFile(private val className: String, private val fileContent: String) {
     }
 
     fun fileContentWithoutComments(): String {
-        val isCommentedLine: (String) -> Boolean = { line ->
-            val trimmedLine = line.trim()
-            listOf(
-                "//",
-
-                // This is dangerous and won't work for all situations.
-                // I should really do something a bit more clever.
-                // Failure example:
-                // A multiplication statement which goes over two lines.
-                "*",
-
-                // Failure example:
-                // A block comment that lasts for only the first part of the
-                // line, and the part after that is actual source code.
-                "/*"
-            ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
-        }
-        return fileContent.lines().filter(isCommentedLine).stream()
-            .collect(Collectors.joining("\n"))
+        return commentRemover.codeWithoutComments(fileContent)
     }
 
     fun className(): String {

@@ -1,6 +1,6 @@
 package analyser
 
-import JavaFile
+import javafile.JavaFile
 
 fun interface CodeAnalysis {
     fun evaluate(javaFile: JavaFile): JavaFileFeedback

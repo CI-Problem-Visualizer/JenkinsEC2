@@ -1,6 +1,7 @@
 import com.github.javaparser.ast.AccessSpecifier
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import javafile.JavaFile
 import org.http4k.core.Body
 import org.http4k.core.Method
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -23,6 +24,7 @@ class JavaFileTest {
         )
         assertEquals(
             "public class ElseInComments {\n" +
+                    "\n" +
                     "    public int noProblem() {\n" +
                     "        return 5;\n" +
                     "    }\n" +

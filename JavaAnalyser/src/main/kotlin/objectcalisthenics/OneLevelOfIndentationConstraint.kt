@@ -1,6 +1,6 @@
 package objectcalisthenics
 
-import JavaFile
+import javafile.JavaFile
 import analyser.AllFine
 import analyser.CodeAnalysis
 import analyser.JavaFileFeedback
@@ -9,7 +9,6 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.stmt.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
-import java.util.stream.Collectors.joining
 
 class OneLevelOfIndentationConstraint : CodeAnalysis {
     override fun evaluate(javaFile: JavaFile): JavaFileFeedback {

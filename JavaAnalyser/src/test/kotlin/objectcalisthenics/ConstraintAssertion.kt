@@ -1,6 +1,6 @@
 package objectcalisthenics
 
-import JavaFile
+import javafile.JavaFile
 import TestDataFiles
 import analyser.AllFine
 import analyser.RoomForImprovement

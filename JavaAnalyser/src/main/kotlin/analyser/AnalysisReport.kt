@@ -1,6 +1,6 @@
 package analyser
 
-import JavaFile
+import javafile.JavaFile
 import java.util.*
 
 class AnalysisReport(
