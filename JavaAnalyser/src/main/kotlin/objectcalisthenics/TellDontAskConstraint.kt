@@ -16,14 +16,33 @@ class TellDontAskConstraint : CodeAnalysis {
         if (javaFile.fieldDeclarations().any {
                 it.hasModifier(Modifier.publicModifier().keyword)
             }) {
-            return RoomForImprovement("")
+            return RoomForImprovement(
+                "This class has at least one public field. This means that " +
+                        "the class is exposing its internal implementation " +
+                        "details to its collaborators, which means that you " +
+                        "might be missing out on the flexibility that is " +
+                        "created by the use of strong encapsulation. " +
+                        "Consider making the field(s) private, and instead " +
+                        "exposing public methods for behaviours that require " +
+                        "their use."
+            )
         }
 
         val fieldNames = javaFile.fieldDeclarations()
             .flatMap { it.variables }
             .map { it.nameAsString }
         if (javaFile.parse().methods.any { it.isGetterOrSetter(fieldNames) }) {
-            return RoomForImprovement("")
+            return RoomForImprovement(
+                "This class appears to have at least one getter/setter " +
+                        "method. This is an example of the class exposing " +
+                        "its internal implementation details to its " +
+                        "collaborators, which means that you might be " +
+                        "missing out on the flexibility that is created by " +
+                        "using strong encapsulation. Consider moving the " +
+                        "behaviour for which getter/setter methods are " +
+                        "required, into the class which exposes the " +
+                        "getter/setter methods."
+            )
         }
 
         return AllFine()
