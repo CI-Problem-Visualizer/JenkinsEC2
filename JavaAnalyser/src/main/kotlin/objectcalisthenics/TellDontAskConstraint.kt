@@ -73,6 +73,9 @@ private fun MethodDeclaration.isGetter(fieldNames: List<InstanceVariable>): Bool
 }
 
 private fun MethodDeclaration.isSetter(fieldNames: List<InstanceVariable>): Boolean {
+    if (bodyHasMoreThanOneLine()) {
+        return false
+    }
     val isSetterVisitor = IsSetterVisitor(this, fieldNames)
     accept(isSetterVisitor, null)
     return isSetterVisitor.isSetter

@@ -74,7 +74,7 @@ class JavaFile(private val className: String, private val fileContent: String) {
 
     private fun compilationUnit(): CompilationUnit {
         val parseResult: ParseResult<CompilationUnit> =
-            JavaParser().parse(fileContent())
+            JavaParser().parse(fileContentWithoutComments())
         if (!parseResult.isSuccessful) {
             throw ParseException(parseResult.toString())
         }
