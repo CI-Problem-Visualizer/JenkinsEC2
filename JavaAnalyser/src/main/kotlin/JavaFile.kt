@@ -33,7 +33,11 @@ class JavaFile(private val className: String, private val fileContent: String) {
             val trimmedLine = line.trim()
             listOf(
                 "//",
+
+                // This is dangerous and won't work for all situations.
+                // I should really do something a bit more clever.
                 "*",
+
                 "/*"
             ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
         }
