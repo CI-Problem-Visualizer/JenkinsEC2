@@ -36,8 +36,13 @@ class JavaFile(private val className: String, private val fileContent: String) {
 
                 // This is dangerous and won't work for all situations.
                 // I should really do something a bit more clever.
+                // Failure example:
+                // A multiplication statement which goes over two lines.
                 "*",
 
+                // Failure example:
+                // A block comment that lasts for only the first part of the
+                // line, and the part after that is actual source code.
                 "/*"
             ).none { trimmedLine.startsWith(it) } && !trimmedLine.endsWith("*/")
         }
