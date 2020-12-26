@@ -1,3 +1,5 @@
+import analyser.Analyser
+import objectcalisthenics.ObjectCalisthenicsConstraints
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
@@ -13,6 +15,10 @@ class Main {
     }
 }
 
-fun createObjectCalisthenicsServer(port: Int): Http4kServer =
-    routes("/code-analysis" bind AnalyserServer().analysis())
+fun createObjectCalisthenicsServer(port: Int): Http4kServer {
+    val analyserServer = AnalyserServer(
+        Analyser(ObjectCalisthenicsConstraints)
+    )
+    return routes("/code-analysis" bind analyserServer.requestHandler())
         .asServer(Netty(port))
+}
