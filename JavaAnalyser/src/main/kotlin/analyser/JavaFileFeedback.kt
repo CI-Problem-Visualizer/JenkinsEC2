@@ -15,5 +15,10 @@ class AllFine : JavaFileFeedback("\"All fine\"") {
     }
 }
 
-class RoomForImprovement(feedbackMessage: String) :
-    JavaFileFeedback("\"${feedbackMessage}\"")
+class RoomForImprovement(private val feedbackMessage: String) :
+    JavaFileFeedback("\"${feedbackMessage}\"") {
+
+    override fun toString(): String {
+        return "${this.javaClass.simpleName}<${feedbackMessage}>"
+    }
+}

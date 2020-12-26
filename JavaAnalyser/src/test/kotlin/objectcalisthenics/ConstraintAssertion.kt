@@ -29,7 +29,8 @@ object ConstraintAssertion {
             evaluation(codeAnalysis, testDataFilePath)
         assertTrue(
             feedback is AllFine,
-            "Expected ${RoomForImprovement::class}, but got ${feedback::class}."
+            "Expected ${AllFine::class}, but got ${feedback::class}.\n" +
+                    "The full return value was $feedback"
         )
     }
 
