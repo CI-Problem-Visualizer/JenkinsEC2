@@ -9,8 +9,16 @@ class TellDontAskConstraintTest {
     private val constraint: CodeAnalysis = TellDontAskConstraint()
 
     @Test
+    fun `fails for class with setter`() {
+        assertConstraintNotMet(constraint, "tell-dont-ask/Setter.java")
+    }
+
+    @Test
     fun `passes for method which starts with 'get' but isn't a getter`() {
-        assertConstraintMet(constraint, "tell-dont-ask/MethodThatLooksLikeGetterButIsNot.java")
+        assertConstraintMet(
+            constraint,
+            "tell-dont-ask/MethodThatLooksLikeGetterButIsNot.java"
+        )
     }
 
     @Test
