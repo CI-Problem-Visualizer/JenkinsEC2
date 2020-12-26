@@ -13,8 +13,8 @@ object ObjectCalisthenicsConstraints : ArrayList<CodeAnalysis>() {
                 OneDotPerLineConstraint(),
                 // Don't abbreviate
                 KeepAllEntitiesSmallConstraint(),
-                NoMoreThanTwoFieldsConstraint()
-                // No getters/setters/properties
+                NoMoreThanTwoFieldsConstraint(),
+                TellDontAskConstraint()
             )
         )
     }
