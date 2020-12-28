@@ -176,13 +176,13 @@ form_data_dict = {"system_message": "",
 
 form_data_json = json.dumps(form_data_dict)
 form_data_dict["json"] = form_data_json
-config_submit_data = form_data_dict
 config_submit_response = requests.post(
     jenkins_url + '/configSubmit',
-    data=config_submit_data,
+    data=form_data_dict,
     auth=jenkins_credentials,
     headers={
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": crumb_response.headers["Set-Cookie"]
     })
-print(config_submit_response.status_code)
+print("Jenkins responded to upload with HTTP status: " +
+      str(config_submit_response.status_code))
