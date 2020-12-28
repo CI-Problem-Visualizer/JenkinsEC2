@@ -2,12 +2,30 @@
 
 ## Setting things up
 
+### Manual steps
+
+1a) Go into the AWS management console. In here we need to create three things.
+
+- An SSH keypair. Download the ".pem" file for this keypair.
+- A security group. Get the identifier for this security group.
+- A subnet. Get the identifier for this security group.
+
+1b) For each of these things, you need to update the appropriate parameter
+entries within `jenkins_server.tf`.
+
+1c) Additionally, take a look over the parameters in the `jenkins_server.tf`
+terraform file, because they are specific to my usage of it. For example the
+code indicates that the EC2 instance will be provisioned in the "ap-southeast-1"
+AZ.
+
+2.) Decide on your jenkins login credentials and put them into a file called
+"jenkins_creds.txt" in the format `username:password`.
+
+### Automated steps
+
 - Provision everything with `terraform apply` & take it down with
   `terraform destroy`. You can also use `./node_bounce.sh`.
 - Set up Jenkins on the EC2 instance with `./node_bootstrap.sh`.
-- (If necessary) SSH into the machine with `./node_ssh.sh`.
-- (If necessary) Download the Jenkins CLI tool from the Jenkins server using
-  `./jenkins_cli_download.sh`
 - Create the initial Jenkins user according to the credentials
   in `jenkins_creds.txt` by using `./jenkins_create_user.py`
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins.
@@ -26,3 +44,9 @@
   install none (there's a button near the top to select none if necessary).
 - After that, you should be able to start using Jenkins normally. You should be
   able to see and run the 'CodeSpyGlass' pipeline job, and it should go green.
+
+## If necessary
+
+- SSH into the machine with `./node_ssh.sh`.
+- Download the Jenkins CLI tool from the Jenkins server using
+  `./jenkins_cli_download.sh`.
