@@ -10,10 +10,6 @@
   `./jenkins_cli_download.sh`
 - Create the initial Jenkins user according to the credentials
   in `jenkins_creds.txt` by using `./jenkins_create_user.py`
-- Get the EC2 IP address using `./node_ip.sh` and go there in the browser to
-  port 8080, to begin Jenkins setup.
-- When asked which plugins to install choose "Choose my own plugins", and then
-  install none. There is a script to install exactly the set of plugins we need.
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins.
   The downloads can be flaky, so you may have to ctrl-C the script and re-run
   it, maybe even more than once. Eventually though it'll make it to the end.
@@ -24,5 +20,9 @@
   restarting. The restart should not take long at all, just a few seconds.
 - Run `./jenkins_create_job.sh` to create the CodeSpyGlass pipeline job.
 - Set up the global pipeline library by running `./jenkins_create_library.py`.
-- Now you should be able to run the 'CodeSpyGlass' pipeline job, and it should
-  go green.
+- Get the EC2 IP address using `./node_ip.sh` and go there in the browser to
+  port 8080, to finish the Jenkins setup.
+- When asked which plugins to install choose "Choose my own plugins", and then
+  install none (there's a button near the top to select none if necessary).
+- After that, you should be able to start using Jenkins normally. You should be
+  able to see and run the 'CodeSpyGlass' pipeline job, and it should go green.
