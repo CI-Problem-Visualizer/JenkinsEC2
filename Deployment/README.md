@@ -23,24 +23,6 @@
   make Jenkins restart. This should then immediately cause Jenkins to begin
   restarting. The restart should not take long at all, just a few seconds.
 - Run `./jenkins_create_job.sh` to create the CodeSpyGlass pipeline job.
-- Set up the global pipeline library by going to
-  'Manage Jenkins > Configure System > Global Pipeline Libraries' and configure
-  it as follows:
-
-```
-Name: CodeSpyGlass
-Default version: main
-
-Allow default version to be overridden: Yes
-Include @Library changes in job recent changes: Yes
-
-Retrieval method: Modern SCM
-Source code management:
-  GitHub:
-    Repository HTTPS URL: https://github.com/CodeSpyGlass/JenkinsPipelineLibrary
-```
-
-- Leave everything else at the defaults. Press "save" at the bottom when you're
-  done with the above.
+- Set up the global pipeline library by running `./jenkins_create_library.py`.
 - Now you should be able to run the 'CodeSpyGlass' pipeline job, and it should
   go green.
