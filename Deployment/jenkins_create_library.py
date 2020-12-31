@@ -115,7 +115,7 @@ form_data_dict = {"system_message": "",
                                                           "credentialsId": "",
                                                           "configuredByUrl": "true",
                                                           "configuredByUrlRadio": "true",
-                                                          "repositoryUrl": "https://github.com/CodeSpyGlass/JenkinsPipelineLibrary",
+                                                          "repositoryUrl": "https://github.com/CodeSpyGlass/JenkinsPipeline",
                                                           "repoOwner": "CodeSpyGlass",
                                                           "repository": "",
                                                           "traits": [{
