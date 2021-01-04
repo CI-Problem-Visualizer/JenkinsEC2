@@ -14,7 +14,7 @@ job("Analysis Server") {
             cpu = 2048
         }
 
-        shellScript{
+        shellScript {
             content = """
                 cd JavaAnalyser
                 ./gradlew build
