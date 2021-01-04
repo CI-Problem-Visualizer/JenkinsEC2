@@ -20,5 +20,13 @@ job("Analysis Server") {
                 ./gradlew build
             """.trimIndent()
         }
+
+        shellScript {
+            content = """
+                pwd
+                cd ../Deployment
+                pwd
+            """.trimIndent()
+        }
     }
 }
