@@ -1,9 +1,17 @@
+NODE_IP=$(./node_ip.sh)
+
+if [[ $NODE_IP == "" ]]; then
+  echo "
+Can't deploy. The node isn't up, so there's nowhere to deploy to. Bring the
+server up first using the scripts as described in Deployment/README.md.
+"
+  exit 1
+fi
+
 # Rebuild
 pushd ../JavaAnalyser || exit 1
 ./gradlew jar
 popd || exit 1
-
-NODE_IP=$(./node_ip.sh)
 
 # Copy over JAR
 scp -i jenkins_server_keys.pem \

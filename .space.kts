@@ -14,6 +14,7 @@ job("Analysis Server") {
             cpu = 2048
         }
 
+        // Build Analyser
         shellScript {
             content = """
                 cd JavaAnalyser
@@ -21,11 +22,11 @@ job("Analysis Server") {
             """.trimIndent()
         }
 
+        // Deploy it to the cloud
         shellScript {
             content = """
-                pwd
-                cd ../Deployment
-                pwd
+                cd Deployment
+                # ./analysis_server_bounce.sh # We give Space the secret file.
             """.trimIndent()
         }
     }
