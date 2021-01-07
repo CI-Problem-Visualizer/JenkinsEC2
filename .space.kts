@@ -31,8 +31,9 @@ job("Analysis Server") {
                 # AWS EC2 node.
                 # We don't store the secret in Space itself, because it's larger
                 # than 1000 bytes. So we could store it in another tool that can
-                # do secret management, like AWS KMS.
-                # ./analysis_server_bounce.sh 
+                # do secret management, like AWS KMS (and access it via the AWS
+                # CLI, using credentials stored in Space).
+                # ./analysis_server_bounce.sh
             """.trimIndent()
         }
     }
