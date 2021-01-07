@@ -26,7 +26,13 @@ job("Analysis Server") {
         shellScript {
             content = """
                 cd Deployment
-                # ./analysis_server_bounce.sh # We give Space the secret file.
+                
+                # Next step requires getting the secret SSH keys for the
+                # AWS EC2 node.
+                # We don't store the secret in Space itself, because it's larger
+                # than 1000 bytes. So we could store it in another tool that can
+                # do secret management, like AWS KMS.
+                # ./analysis_server_bounce.sh 
             """.trimIndent()
         }
     }
