@@ -6,8 +6,7 @@ if [[ ! -e jenkins-cli.jar ]]; then
 fi
 
 NODE_IP=$(./node_ip.sh)
-
-echo "You can view the progress of these installations at http://${NODE_IP}:8080/updateCenter/"
+echo "Go to http://${NODE_IP}:8080/updateCenter/ to view the progress of these installations."
 
 function install_plugin() {
   ./jenkins_cli.sh install-plugin "$1" -deploy
