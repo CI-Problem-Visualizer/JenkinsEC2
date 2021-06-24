@@ -6,7 +6,8 @@
 
 1a) Go into the AWS management console. In here we need to create three things.
 
-- An SSH keypair. Download the ".pem" file for this keypair.
+- An SSH keypair. Download the ".pem" file for this keypair and save it to this directory as "ec2_key.pem". 
+  Run `chmod 400 ec2_key.pem`.
 - A security group. Get the identifier for this security group.
 - A subnet. Get the identifier for this security group.
 

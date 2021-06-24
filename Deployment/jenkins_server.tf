@@ -43,7 +43,7 @@ resource "aws_instance" "jenkins_server" {
   instance_type = "t2.small"
   ipv6_address_count = 0
   ipv6_addresses = []
-  key_name = "jenkins_server_keys"
+  key_name = "codeday_jenkins"
   monitoring = false
   security_groups = [
     "sg-0a8342b765494da31"]

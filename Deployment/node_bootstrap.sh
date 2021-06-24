@@ -1,7 +1,7 @@
 NODE_IP=$(./node_ip.sh)
 
 ### Install and start Jenkins ###
-ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" <<'EOF'
+ssh -i ec2_key.pem "ubuntu@${NODE_IP}" <<'EOF'
   sudo apt update
   sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
