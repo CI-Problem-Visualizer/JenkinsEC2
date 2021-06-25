@@ -14,12 +14,12 @@ pushd ../JavaAnalyser || exit 1
 popd || exit 1
 
 # Copy over JAR
-scp -i jenkins_server_keys.pem \
+scp -i ec2_key.pem \
   ../JavaAnalyser/build/libs/JavaAnalyser-1.0-SNAPSHOT.jar \
   "ubuntu@${NODE_IP}:/home/ubuntu"
 
 # Run JAR
-ssh -i jenkins_server_keys.pem "ubuntu@${NODE_IP}" <<'EOF'
+ssh -i ec2_key.pem "ubuntu@${NODE_IP}" <<'EOF'
   command -v java
   JAVA_MISSING=$?
   if [[ $JAVA_MISSING == "1" ]]
