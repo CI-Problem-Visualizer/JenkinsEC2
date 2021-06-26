@@ -25,6 +25,8 @@ a user 'jenkins', with password 'superpassword'.
 
 ### Scripted steps
 
+Some of this is flaky, so sometimes you might have to rerun a script or two.
+
 - Provision everything with `terraform apply` & take it down with
   `terraform destroy`. You can also use `./node_bounce.sh`.
 - Set up Jenkins on the EC2 instance with `./node_bootstrap.sh`.
@@ -33,8 +35,6 @@ a user 'jenkins', with password 'superpassword'.
 - Create the initial Jenkins user according to the credentials
   in `jenkins_creds.txt` by using `./jenkins_create_user.py`
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins.
-  The downloads can be flaky, so you may have to ctrl-C the script and re-run
-  it, maybe even more than once. Eventually though it'll make it to the end.
 - Once Jenkins has installed all the plugins, go to the update center
   (`jenkins_install_plugins.sh` will print out a link to it at the start of
   script execution). Check the box at the bottom which says it'll make
