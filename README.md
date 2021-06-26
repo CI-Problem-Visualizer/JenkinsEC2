@@ -1,5 +1,7 @@
 # Jenkins on AWS EC2
 
+Forked from one of my old toys: https://github.com/CodeSpyGlass
+
 ## Setting things up
 
 ### Manual steps
