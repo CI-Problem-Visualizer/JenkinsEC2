@@ -39,10 +39,10 @@ Some of this is flaky, so sometimes you might have to rerun a script or two.
   (`jenkins_install_plugins.sh` will print out a link to it at the start of
   script execution). Check the box at the bottom which says it'll make
   Jenkins restart. This should then immediately cause Jenkins to begin
-  restarting. The restart should not take long at all, just a few seconds.
-- Open Jenkins in a browser. You can use the script `./jenkins_open_in_browser.sh`
-  or you can get the EC2 IP address using `./node_ip.sh` and go there manually 
-  in the browser to port 8080, to finish the Jenkins setup as described below.
+  restarting. The restart should not take long at all. Certainly under a minute.
+- Once Jenkins finished restarting, it should direct you to the login screen.
+  Use the credentials you configured earlier to log in. You'll now finish the
+  installation as described below.
 - When asked which plugins to install, choose "Choose my own plugins". Choose
   'none' (there's a button near the top to select none if necessary) and then
   press the button to proceed.
@@ -52,4 +52,5 @@ Some of this is flaky, so sometimes you might have to rerun a script or two.
 ## If necessary
 
 - SSH into the machine with `./node_ssh.sh`.
-- Set up a global pipeline library using `./jenkins_create_library.py <library repository url>`.
+- Set up a global pipeline library using `./jenkins_create_library.py <library repository url>`. 
+- Open Jenkins in the browser using `./jenkins_open_in_browser.sh`.
