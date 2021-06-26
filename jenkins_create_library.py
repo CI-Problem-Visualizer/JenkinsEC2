@@ -1,7 +1,22 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 import subprocess
+import sys
 import requests
 import json
+
+if len(sys.argv) != 2:
+    print("\nIncorrect usage.\n")
+    print(f"Usage:   {sys.argv[0]} <library repository url>")
+    print(f"Example: {sys.argv[0]} https://github.com/CodeSpyGlass/JenkinsPipeline")
+    exit(1)
+
+library_repository_url = sys.argv[1]
+
+status_code = subprocess.check_output("curl -sLI " + library_repository_url + " | head -n 1 | cut -d$' ' -f2", shell=True) \
+    .decode("utf-8").strip()
+if status_code != "200":
+    print(f"Failing fast. The Jenkins library URL {library_repository_url} returned status code {status_code} instead of 200.")
+    exit(1)
 
 try:
     subprocess.check_call("ls jenkins-cli.jar", shell=True)
@@ -12,7 +27,6 @@ except subprocess.CalledProcessError:
 node_ip = subprocess.check_output("sh node_ip.sh", shell=True) \
     .decode("utf-8").strip()
 jenkins_url = f"http://{node_ip}:8080"
-
 
 def get_jenkins_credentials():
     with open("jenkins_creds.txt") as f:
@@ -115,7 +129,7 @@ form_data_dict = {"system_message": "",
                                                           "credentialsId": "",
                                                           "configuredByUrl": "true",
                                                           "configuredByUrlRadio": "true",
-                                                          "repositoryUrl": "https://github.com/CodeSpyGlass/JenkinsPipeline",
+                                                          "repositoryUrl": library_repository_url,
                                                           "repoOwner": "CodeSpyGlass",
                                                           "repository": "",
                                                           "traits": [{

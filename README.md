@@ -1,4 +1,4 @@
-# Jenkins on AWS
+# Jenkins on AWS EC2
 
 ## Setting things up
 
