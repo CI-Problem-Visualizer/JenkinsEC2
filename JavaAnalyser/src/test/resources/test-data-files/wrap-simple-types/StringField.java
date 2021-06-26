@@ -1,3 +1,0 @@
-class StringField {
-    String a;
-}

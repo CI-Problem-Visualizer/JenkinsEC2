@@ -1,5 +1,0 @@
-.terraform
-ec2_key.pem
-jenkins_creds.txt
-jenkins-cli.jar
-*.iml
