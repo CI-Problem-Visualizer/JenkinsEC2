@@ -29,7 +29,7 @@ AZ.
 run `echo "jenkins:superpassword" > jenkins_creds.txt` to create this file with
 a user 'jenkins', with password 'superpassword'.
 
-### Automated steps
+### Scripted steps
 
 - Provision everything with `terraform apply` & take it down with
   `terraform destroy`. You can also use `./node_bounce.sh`.
