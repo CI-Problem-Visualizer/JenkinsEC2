@@ -25,7 +25,9 @@ code indicates that the EC2 instance will be provisioned in the "ap-southeast-1"
 AZ.
 
 2.) Decide on your jenkins login credentials and put them into a file called
-"jenkins_creds.txt" in the format `username:password`.
+"jenkins_creds.txt" in the format `username:password`. For example, you could
+run `echo "jenkins:superpassword" > jenkins_creds.txt` to create this file with
+a user 'jenkins', with password 'superpassword'.
 
 ### Automated steps
 
