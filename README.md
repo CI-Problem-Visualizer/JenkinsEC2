@@ -4,6 +4,9 @@ Forked from one of my old toys: https://github.com/CodeSpyGlass
 
 ## Setting things up
 
+Your environment needs to have some tools. You can verify that you have them by running `check_dependencies.sh`. It 
+will say "All good." if everything is set up.
+
 ### Manual steps
 
 1a) Go into the AWS management console. In here we need to create three things.

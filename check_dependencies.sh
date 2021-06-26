@@ -10,3 +10,5 @@ which aws
 ls ~/.aws/credentials
 
 set +e
+
+echo "All good."
