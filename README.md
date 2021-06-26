@@ -5,13 +5,13 @@ Forked from one of my old toys: https://github.com/CodeSpyGlass
 ## Setting things up
 
 Your environment needs to have some tools. You can verify that you have them by running `check_dependencies.sh`. It 
-will say "All good." if everything is set up.
+will say "All good." if your environment has everything that's needed.
 
 ### Manual steps
 
 1a) Go into the AWS management console. In here we need to create three things.
 
-- An SSH keypair. Download the ".pem" file for this keypair and save it to this directory as "ec2_key.pem". 
+- An SSH keypair. Download the ".pem" file for this keypair and save it to this directory as `ec2_key.pem`. 
   Run `chmod 400 ec2_key.pem`.
 - A security group. Get the identifier for this security group.
 - A subnet. Get the identifier for this subnet.
@@ -24,7 +24,7 @@ terraform file, because they are specific to my usage of it. For example the
 code indicates that the EC2 instance will be provisioned in the "ap-southeast-1"
 AZ.
 
-2.) Decide on your jenkins login credentials and put them into a file called
+2) Decide on your jenkins login credentials and put them into a file called
 "jenkins_creds.txt" in the format `username:password`. For example, you could
 run `echo "jenkins:superpassword" > jenkins_creds.txt` to create this file with
 a user 'jenkins', with password 'superpassword'.
@@ -43,15 +43,17 @@ a user 'jenkins', with password 'superpassword'.
   it, maybe even more than once. Eventually though it'll make it to the end.
 - Once Jenkins has installed all the plugins, go to the update center
   (`jenkins_install_plugins.sh` will print out a link to it at the start of
-  script execution), and check the box at the bottom which says it'll make
+  script execution). Check the box at the bottom which says it'll make
   Jenkins restart. This should then immediately cause Jenkins to begin
   restarting. The restart should not take long at all, just a few seconds.
-- Get the EC2 IP address using `./node_ip.sh` and go there in the browser to
-  port 8080, to finish the Jenkins setup.
-- When asked which plugins to install choose "Choose my own plugins", and then
-  install none (there's a button near the top to select none if necessary).
-- After that, you should be able to start using Jenkins normally. You should be
-  able to see and run the 'CodeSpyGlass' pipeline job, and it should go green.
+- Open Jenkins in a browser. You can use the script `./jenkins_open_in_browser.sh`
+  or you can get the EC2 IP address using `./node_ip.sh` and go there manually 
+  in the browser to port 8080, to finish the Jenkins setup as described below.
+- When asked which plugins to install, choose "Choose my own plugins". Choose
+  'none' (there's a button near the top to select none if necessary) and then
+  press the button to proceed.
+- When asked about the Jenkins URL, continue with the default value.
+- After that, you should be able to start using Jenkins normally.
 
 ## If necessary
 
