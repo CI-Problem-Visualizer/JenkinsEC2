@@ -9,7 +9,7 @@
 - An SSH keypair. Download the ".pem" file for this keypair and save it to this directory as "ec2_key.pem". 
   Run `chmod 400 ec2_key.pem`.
 - A security group. Get the identifier for this security group.
-- A subnet. Get the identifier for this security group.
+- A subnet. Get the identifier for this subnet.
 
 1b) For each of these things, you need to update the appropriate parameter
 entries within `jenkins_server.tf`.
