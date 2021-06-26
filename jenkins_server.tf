@@ -1,5 +1,25 @@
+variable "aws_region_id" {
+  type = string
+  description = "The name of the AWS region where everything referenced in this file is expected to exist, and where everything new will be created."
+}
+
+variable "ssh_key_name" {
+  type = string
+  description = "The name of the EC2 key pair that can be used to SSH into the instance"
+}
+
+variable "security_group_id" {
+  type = string
+  description = "The id of the EC2 security group that'll be applied to the EC2 instance"
+}
+
+variable "subnet_id" {
+  type = string
+  description = "The id of the AWS subnet that the EC2 instance will run in"
+}
+
 provider "aws" {
-  region = "ap-southeast-1"
+  region = var.aws_region_id
 }
 
 # aws_iam_role.ec2_ssm_instance_profile:
@@ -43,12 +63,13 @@ resource "aws_instance" "jenkins_server" {
   instance_type = "t2.small"
   ipv6_address_count = 0
   ipv6_addresses = []
-  key_name = "codeday_jenkins"
+  key_name = var.ssh_key_name
   monitoring = false
   security_groups = [
-    "sg-0a8342b765494da31"]
+    var.security_group_id
+  ]
   source_dest_check = true
-  subnet_id = "subnet-63d2112b"
+  subnet_id = var.subnet_id
   tags = {}
   tenancy = "default"
   volume_tags = {}

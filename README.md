@@ -9,20 +9,14 @@ will say "All good." if your environment has everything that's needed.
 
 ### Manual steps
 
-1a) Go into the AWS management console. In here we need to create three things.
+1) Go into the AWS management console. Take note of the AWS region you're in. You need to create three things.
 
 - An SSH keypair. Download the ".pem" file for this keypair and save it to this directory as `ec2_key.pem`. 
-  Run `chmod 400 ec2_key.pem`.
+  Run `chmod 400 ec2_key.pem` in order to set the access permissions on it correctly.
 - A security group. Get the identifier for this security group.
 - A subnet. Get the identifier for this subnet.
 
-1b) For each of these things, you need to update the appropriate parameter
-entries within `jenkins_server.tf`.
-
-1c) Additionally, take a look over the parameters in the `jenkins_server.tf`
-terraform file, because they are specific to my usage of it. For example the
-code indicates that the EC2 instance will be provisioned in the "ap-southeast-1"
-AZ.
+For everything mentioned above, you need to update the appropriate variable value in `terraform.tfvars`.
 
 2) Decide on your jenkins login credentials and put them into a file called
 "jenkins_creds.txt" in the format `username:password`. For example, you could
