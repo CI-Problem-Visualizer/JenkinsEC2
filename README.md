@@ -4,7 +4,7 @@ Forked from one of my old toys: https://github.com/CodeSpyGlass
 
 ## Setting things up
 
-Your environment needs to have some tools. You can verify that you have them by running `check_dependencies.sh`. It 
+Your environment needs to have some tools. You can verify that you have them by running `./check_dependencies.sh`. It 
 will say "All good." if your environment has everything that's needed.
 
 ### Manual steps
