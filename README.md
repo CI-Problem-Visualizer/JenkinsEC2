@@ -32,18 +32,18 @@ AZ.
 - Provision everything with `terraform apply` & take it down with
   `terraform destroy`. You can also use `./node_bounce.sh`.
 - Set up Jenkins on the EC2 instance with `./node_bootstrap.sh`.
+- Download the Jenkins CLI tool from the new Jenkins server using
+  `./jenkins_cli_download.sh`.
 - Create the initial Jenkins user according to the credentials
   in `jenkins_creds.txt` by using `./jenkins_create_user.py`
 - Run `./jenkins_install_plugins.sh` to install the required Jenkins plugins.
   The downloads can be flaky, so you may have to ctrl-C the script and re-run
   it, maybe even more than once. Eventually though it'll make it to the end.
-- Once all the plugins are installed, go to the update center
+- Once Jenkins has installed all the plugins, go to the update center
   (`jenkins_install_plugins.sh` will print out a link to it at the start of
-  script execution), and check the box at the bottom which says that it will
-  make Jenkins restart. This should then immediately cause Jenkins to begin
+  script execution), and check the box at the bottom which says it'll make
+  Jenkins restart. This should then immediately cause Jenkins to begin
   restarting. The restart should not take long at all, just a few seconds.
-- Run `./jenkins_create_job.sh` to create the CodeSpyGlass pipeline job.
-- Set up the global pipeline library by running `./jenkins_create_library.py`.
 - Get the EC2 IP address using `./node_ip.sh` and go there in the browser to
   port 8080, to finish the Jenkins setup.
 - When asked which plugins to install choose "Choose my own plugins", and then
@@ -54,5 +54,4 @@ AZ.
 ## If necessary
 
 - SSH into the machine with `./node_ssh.sh`.
-- Download the Jenkins CLI tool from the Jenkins server using
-  `./jenkins_cli_download.sh`.
+- Set up a global pipeline library using `./jenkins_create_library.py <library repository url>`.
