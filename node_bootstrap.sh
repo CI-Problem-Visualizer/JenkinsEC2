@@ -16,5 +16,3 @@ ssh -i ec2_key.pem "ubuntu@${NODE_IP}" <<'EOF'
   sudo docker run -d --network host -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 EOF
 
-### Install and start analysis server ###
-./analysis_server_bounce.sh
