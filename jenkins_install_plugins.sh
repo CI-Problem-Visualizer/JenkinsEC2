@@ -28,6 +28,7 @@ install_plugin htmlpublisher
 install_plugin http_request
 install_plugin timestamper
 install_plugin workflow-cps-global-lib
+install_plugin workflow-aggregator
 install_plugin pipeline-model-definition
 install_plugin pipeline-utility-steps
 install_plugin pipeline-github-lib
