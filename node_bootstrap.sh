@@ -11,8 +11,8 @@ ssh -i ec2_key.pem "ubuntu@${NODE_IP}" <<'EOF'
   sudo apt install -y docker-ce
   apt-cache policy docker-ce > /home/ubuntu/docker-ce-cache-policy.log
   sudo systemctl status docker > /home/ubuntu/docker-service-status.log
-  sudo docker pull jenkins/jenkins:lts
+  sudo docker pull jenkins/jenkins:jdk11
   sudo ufw allow 8080
-  sudo docker run -d --network host -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+  sudo docker run -d --network host -v jenkins_home:/var/jenkins_home jenkins/jenkins:jdk11
 EOF
 
